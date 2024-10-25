@@ -1,0 +1,12 @@
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\bin\Debug\net8.0\Conexion.deps.json
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\bin\Debug\net8.0\Conexion.dll
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\bin\Debug\net8.0\Conexion.pdb
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.AssemblyInfoInputs.cache
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.AssemblyInfo.cs
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.csproj.CoreCompileInputs.cache
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.sourcelink.json
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.dll
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\refint\Conexion.dll
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\Conexion.pdb
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectosJesus\AppSGA\Conexion\obj\Debug\net8.0\ref\Conexion.dll
