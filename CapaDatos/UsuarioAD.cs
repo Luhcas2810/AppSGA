@@ -31,7 +31,7 @@ namespace CapaDatos
             }
         }
 
-        public List<Usuario> ObtenerListaUsuario()
+        public async Task<List<Usuario>> ObtenerListaUsuarioAsync()
         {
             List<Usuario> rptListaUsuario = new List<Usuario>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
@@ -40,8 +40,8 @@ namespace CapaDatos
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    oConexion.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    await oConexion.OpenAsync();
+                    SqlDataReader dr = await cmd.ExecuteReaderAsync();
                     while (dr.Read())
                     {
                         rptListaUsuario.Add(new Usuario()
@@ -58,6 +58,54 @@ namespace CapaDatos
                 catch
                 {
                     return null;
+                }
+            }
+        }
+
+        public async Task<bool> CrearUsuarioAsync(Usuario usuario)
+        {
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_CrearUsuario", oConexion);
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@Rol", usuario.Rol);
+                cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
+                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    await oConexion.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> ModificarUsuarioAsync(Usuario usuario)
+        {
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_ModificarUsuario", oConexion);
+                cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@Rol", usuario.Rol);
+                cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
+                cmd.Parameters.AddWithValue("@Estado", usuario.Estado);
+                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    await oConexion.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                }
+                catch
+                {
+                    return false;
                 }
             }
         }

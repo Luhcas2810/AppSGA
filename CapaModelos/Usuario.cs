@@ -12,5 +12,6 @@ namespace CapaModelos
         public string Nombre { get; set; }
         public string Rol { get; set; }
         public string Contrasenia { get; set; }
+        public int Estado { get; set; }
     }
 }
