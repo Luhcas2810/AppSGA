@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Crear";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+
+</p>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Administración</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Programas</li>
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                Lista de Programas
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-sm btn-outline-success" onclick="abrirPopUpForm(null)"> <i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo</button>
+                    </div>
+                </div>
+                <hr />
+                <div class="row mt-3">
+                    <div class="col-sm-12">
+                        <table id="tbUsuario" class="table table-striped table-bordered nowrap compact" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Views/Programa_Crear.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var getListaProgramaURL = '@Url.Action("ObtenerListaPrograma", "Programa")';
+        var postActualizarProgramaURL = '@Url.Action("ActualizarPrograma", "Programa")';
+    </script>
+}

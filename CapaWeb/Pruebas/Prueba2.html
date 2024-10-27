@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba DataTables</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <table id="tbUsuario" class="display">
+        <thead>
+            <tr><th>Nombre</th><th>Rol</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Juan</td><td>Admin</td><td>Activo</td></tr>
+            <tr><td>Ana</td><td>Usuario</td><td>Inactivo</td></tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            console.log("DataTables disponible:", typeof $.fn.DataTable);
+            $('#tbUsuario').DataTable();
+        });
+    </script>
+</body>
+</html>

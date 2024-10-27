@@ -1,0 +1,25 @@
+﻿.navbar-icon-top .navbar-nav .nav-link > .fa {
+    position: relative;
+    width: 36px;
+    font-size: 24px;
+}
+
+    .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+        font-size: 0.75rem;
+        position: absolute;
+        right: 0;
+        font-family: sans-serif;
+    }
+
+/* Adjust styles for different screen sizes */
+@media (min-width: 576px) { /* styles for sm+ screens */
+}
+
+@media (min-width: 768px) { /* styles for md+ screens */
+}
+
+@media (min-width: 992px) { /* styles for lg+ screens */
+}
+
+@media (min-width: 1200px) { /* styles for xl+ screens */
+}

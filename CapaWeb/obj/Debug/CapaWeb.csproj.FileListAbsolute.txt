@@ -53,6 +53,8 @@ C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\roslyn\VBCS
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\Antlr3.Runtime.dll
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\CapaDatos.dll
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\CapaModelos.dll
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\DataTables.AspNet.Core.dll
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\DataTables.AspNet.Mvc5.dll
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaWeb\bin\Newtonsoft.Json.dll

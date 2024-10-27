@@ -1,5 +1,6 @@
 ﻿using CapaDatos;
 using CapaModelos;
+using CapaWeb.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +18,31 @@ namespace CapaWeb.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<JsonResult> ObtenerListaUsuario()
         {
             List<Usuario> oListaUsuario = await UsuarioAD.Instancia.ObtenerListaUsuarioAsync();
+            if(oListaUsuario == null)
+            {
+                oListaUsuario = new List<Usuario>();
+            }
             return Json(new { data = oListaUsuario }, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> DetalleUsuario(int IdUsuario)
         {
-            List<Usuario> oListaUsuario = await UsuarioAD.Instancia.ObtenerListaUsuarioAsync();
-            Usuario oUsuario = oListaUsuario.FirstOrDefault(x => x.IdUsuario == IdUsuario);
+            Usuario oUsuario = (await UsuarioAD.Instancia.ObtenerListaUsuarioAsync()).FirstOrDefault(x => x.IdUsuario == IdUsuario);
             return Json(new { data = oUsuario }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public async Task<JsonResult> ActualizarUsuario(Usuario usuario)
         {
+            usuario.Contrasenia = Encriptar.GetSHA256(usuario.Contrasenia);
+            if(usuario.Contrasenia.Length > 255)
+            {
+                usuario.Contrasenia = usuario.Contrasenia.Substring(0, 255);
+            }
             bool resultado;
             if(usuario.IdUsuario == 0)
             {
@@ -41,7 +52,7 @@ namespace CapaWeb.Controllers
             {
                 resultado = await UsuarioAD.Instancia.ModificarUsuarioAsync(usuario);
             }
-            return Json(new { data = resultado }, JsonRequestBehavior.AllowGet);
+            return Json(new { respuesta = resultado }, JsonRequestBehavior.AllowGet);
         }
     }
 }
