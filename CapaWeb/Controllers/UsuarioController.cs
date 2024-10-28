@@ -39,9 +39,10 @@ namespace CapaWeb.Controllers
         public async Task<JsonResult> ActualizarUsuario(Usuario usuario)
         {
             usuario.Contrasenia = Encriptar.GetSHA256(usuario.Contrasenia);
-            if(usuario.Contrasenia.Length > 255)
+            usuario._Rol = (await RolAD.Instancia.ObtenerListaRolAsync()).FirstOrDefault(x => x.IdRol == usuario.IdRol);
+            if (usuario.Contrasenia.Length > 256)
             {
-                usuario.Contrasenia = usuario.Contrasenia.Substring(0, 255);
+                usuario.Contrasenia = usuario.Contrasenia.Substring(0, 256);
             }
             bool resultado;
             if(usuario.IdUsuario == 0)

@@ -47,8 +47,8 @@ namespace CapaDatos
                         rptListaUsuario.Add(new Usuario()
                         {
                             IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
-                            Nombre = dr["Nombre"].ToString(),
-                            Rol = dr["Rol"].ToString(),
+                            _Usuario = dr["Usuario"].ToString(),
+                            _Rol = (await RolAD.Instancia.ObtenerListaRolAsync()).FirstOrDefault(x => x.IdRol == Convert.ToInt32(dr["IdRol"])),
                             Contrasenia = dr["Contrasenia"].ToString()
                         });
                     }
@@ -67,10 +67,9 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearUsuario", oConexion);
-                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-                cmd.Parameters.AddWithValue("@Rol", usuario.Rol);
+                cmd.Parameters.AddWithValue("@IdRol", usuario._Rol.IdRol);
                 cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
-                cmd.Parameters.AddWithValue("@Correo", usuario.Correo);
+                cmd.Parameters.AddWithValue("@Usuario", usuario._Usuario);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
@@ -92,10 +91,9 @@ namespace CapaDatos
             {
                 SqlCommand cmd = new SqlCommand("proc_ModificarUsuario", oConexion);
                 cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
-                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-                cmd.Parameters.AddWithValue("@Rol", usuario.Rol);
+                cmd.Parameters.AddWithValue("@IdRol", usuario._Rol.IdRol);
                 cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
-                cmd.Parameters.AddWithValue("@Correo", usuario.Correo);
+                cmd.Parameters.AddWithValue("@Usuario", usuario._Usuario);
                 cmd.Parameters.AddWithValue("@Estado", usuario.Estado);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;

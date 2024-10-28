@@ -17,6 +17,7 @@ C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\bin\Debug\
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\bin\Debug\System.Web.WebPages.xml
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\obj\Debug\CapaConexion.csproj.AssemblyReference.cache
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\obj\Debug\CapaConexion.csproj.CoreCompileInputs.cache
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\obj\Debug\CapaConexion.csproj.CopyComplete
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInf\AppSGA\CapaConexion\obj\Debug\CapaConexion.dll

@@ -1,5 +1,29 @@
 ﻿var tablausuario;
 $(document).ready(function () {
+    //OBTENER ROLES
+    jQuery.ajax({
+        url: getListaRolURL,
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+
+            $("#cboRol").html("");
+
+            if (data.data != null) {
+                $.each(data.data, function (i, item) {
+                    $("<option>").attr({ "value": item.IdRol }).text(item._Rol).appendTo("#cboRol");
+                })
+                $("#cboRol").val($("#cboRol option:first").val());
+            }
+
+        },
+        error: function (error) {
+            console.log(error)
+        },
+        beforeSend: function () {
+        },
+    });
     tablausuario = $('#tbUsuario').DataTable({
         "ajax": {
             "url": getListaUsuarioURL,
@@ -12,8 +36,12 @@ $(document).ready(function () {
             //        return data.Descripcion
             //    }
             //},
-            { "data": "Nombre" },
-            { "data": "Rol" },
+            { "data": "_Usuario" },
+            {
+                "data": "_Rol", render: function (data) {
+                    return data._Rol
+                }
+            },
             { "data": "Estado" }
             //{
             //    "data": "Activo", "render": function (data) {
@@ -45,15 +73,13 @@ function abrirPopUpForm(json) {
     $("#txtid").val(0);
     if (json != null) {
         $("#txtid").val(json.IdUsuario);
-        $("#txtNombres").val(json.Nombres);
-        $("#txtCorreo").val(json.Correo);
-        $("#txtClave").val(json.Clave);
-        $("#cboRol").val(json.IdRol);
+        $("#txtUsuario").val(json._Usuario);
+        $("#txtClave").val(json.Contrasenia);
+        $("#cboRol").val(json._Rol.IdRol);
         $("#cboEstado").val(json.Activo == true ? 1 : 0);
         $("#txtClave").prop("disabled", true);
     } else {
-        $("#txtNombres").val("");
-        $("#txtCorreo").val("");
+        $("#txtUsuario").val("");
         $("#txtClave").val("");
         $("#cboRol").val($("#cboRol option:first").val());
         $("#cboEstado").val(1);
@@ -69,11 +95,10 @@ function Guardar() {
         var request = {
             usuario: {
                 IdUsuario: $("#txtid").val(),
-                Nombre: $("#txtNombres").val(),
-                Correo: $("#txtCorreo").val(),
+                _Usuario: $("#txtUsuario").val(),
                 Contrasenia: $("#txtClave").val(),
-                Rol: $("#cboRol").val(),
-                Estado: parseInt($("#cboEstado").val()) == 1 ? true : false
+                IdRol: parseInt($("#cboRol").val()),
+                Estado: parseInt($("#cboEstado").val())
             }
         }
 

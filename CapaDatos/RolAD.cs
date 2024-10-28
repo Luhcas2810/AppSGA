@@ -10,33 +10,33 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class AulaAD
+    public class RolAD
     {
-        public static AulaAD _instancia = null;
+        public static RolAD _instancia = null;
 
-        private AulaAD()
+        private RolAD()
         {
 
         }
 
-        public static AulaAD Instancia
+        public static RolAD Instancia
         {
             get
             {
                 if (_instancia == null)
                 {
-                    _instancia = new AulaAD();
+                    _instancia = new RolAD();
                 }
                 return _instancia;
             }
         }
 
-        public async Task<List<Aula>> ObtenerListaAulaAsync()
+        public async Task<List<Rol>> ObtenerListaRolAsync()
         {
-            List<Aula> rptListaAula = new List<Aula>();
+            List<Rol> rptListaRol = new List<Rol>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaAula", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ObtenerListaRol", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -44,15 +44,14 @@ namespace CapaDatos
                     SqlDataReader dr = await cmd.ExecuteReaderAsync();
                     while (dr.Read())
                     {
-                        rptListaAula.Add(new Aula()
+                        rptListaRol.Add(new Rol()
                         {
-                            IdAula = Convert.ToInt32(dr["IdAula"]),
-                            Nombre = dr["Nombre"].ToString(),
-                            Capacidad = Convert.ToInt32(dr["Capacidad"])
+                            IdRol = Convert.ToInt32(dr["IdRol"]),
+                            _Rol = dr["Rol"].ToString()
                         });
                     }
                     oConexion.Close();
-                    return rptListaAula;
+                    return rptListaRol;
                 }
                 catch
                 {
@@ -61,13 +60,12 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> CrearAulaAsync(Aula aula)
+        public async Task<bool> CrearRolAsync(Rol rol)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_CrearAula", oConexion);
-                cmd.Parameters.AddWithValue("@Nombre", aula.Nombre);
-                cmd.Parameters.AddWithValue("@Capacidad", aula.Capacidad);
+                SqlCommand cmd = new SqlCommand("proc_CrearRol", oConexion);
+                cmd.Parameters.AddWithValue("@Rol", rol._Rol);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

@@ -20,7 +20,7 @@ namespace CapaWeb.Controllers
         [HttpGet]
         public async Task<JsonResult> ObtenerListaAula()
         {
-            List<Aula> oListaAula = await AulaAD.Instancia.ObtenerListaAula();
+            List<Aula> oListaAula = await AulaAD.Instancia.ObtenerListaAulaAsync();
             if (oListaAula == null)
             {
                 oListaAula = new List<Aula>();
