@@ -73,8 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aula.cs" />
+    <Compile Include="Curso.cs" />
     <Compile Include="Departamento.cs" />
     <Compile Include="Estudiante.cs" />
+    <Compile Include="PlanEstudio.cs" />
     <Compile Include="Programa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rol.cs" />
