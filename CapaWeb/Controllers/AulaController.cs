@@ -12,7 +12,7 @@ namespace CapaWeb.Controllers
     public class AulaController : Controller
     {
         // GET: Aula
-        public ActionResult Index()
+        public ActionResult Crear()
         {
             return View();
         }

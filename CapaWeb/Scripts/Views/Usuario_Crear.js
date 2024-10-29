@@ -16,7 +16,6 @@ $(document).ready(function () {
                 })
                 $("#cboRol").val($("#cboRol option:first").val());
             }
-
         },
         error: function (error) {
             console.log(error)
@@ -86,7 +85,6 @@ function abrirPopUpForm(json) {
         $("#txtClave").prop("disabled", false);
     }
     $('#FormModal').modal('show');
-
 }
 function Guardar() {
     //alert("Si pasa");
@@ -125,7 +123,5 @@ function Guardar() {
 
             },
         });
-
     }
-
 }
