@@ -130,6 +130,7 @@
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\EstudianteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlanEstudioController.cs" />
     <Compile Include="Controllers\ProgramaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -172,6 +173,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Views\Curso_Crear.js" />
     <Content Include="Scripts\Views\PlanEstudio_Crear.js" />
+    <Content Include="Scripts\Views\Programa_Crear.js" />
     <Content Include="Scripts\Views\Usuario_Crear.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -191,6 +193,7 @@
     <Content Include="Views\Programa\Crear.cshtml" />
     <Content Include="Views\Curso\Crear.cshtml" />
     <Content Include="Views\PlanEstudio\Crear.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

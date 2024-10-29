@@ -1,31 +1,8 @@
 ﻿var tablaprograma;
 $(document).ready(function () {
-    //OBTENER ROLES
-    jQuery.ajax({
-        url: getListaRolURL,
-        type: "GET",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-
-            $("#cboRol").html("");
-
-            if (data.data != null) {
-                $.each(data.data, function (i, item) {
-                    $("<option>").attr({ "value": item.IdRol }).text(item._Rol).appendTo("#cboRol");
-                })
-                $("#cboRol").val($("#cboRol option:first").val());
-            }
-        },
-        error: function (error) {
-            console.log(error)
-        },
-        beforeSend: function () {
-        },
-    });
-    tablaprograma = $('#tbUsuario').DataTable({
+    tablaprograma = $('#tbPrograma').DataTable({
         "ajax": {
-            "url": getListaUsuarioURL,
+            "url": getListaProgramaURL,
             "type": "GET",
             "datatype": "json"
         },
@@ -35,13 +12,8 @@ $(document).ready(function () {
             //        return data.Descripcion
             //    }
             //},
-            { "data": "_Usuario" },
-            {
-                "data": "_Rol", render: function (data) {
-                    return data._Rol
-                }
-            },
-            { "data": "Estado" }
+            { "data": "Carrera" },
+            { "data": "Duracion" }
             //{
             //    "data": "Activo", "render": function (data) {
             //        if (data) {
@@ -71,37 +43,30 @@ $(document).ready(function () {
 function abrirPopUpForm(json) {
     $("#txtid").val(0);
     if (json != null) {
-        $("#txtid").val(json.IdUsuario);
-        $("#txtUsuario").val(json._Usuario);
-        $("#txtClave").val(json.Contrasenia);
-        $("#cboRol").val(json._Rol.IdRol);
-        $("#cboEstado").val(json.Activo == true ? 1 : 0);
-        $("#txtClave").prop("disabled", true);
+        $("#txtIdPrograma").val(json.IdPrograma);
+        $("#txtCarrera").val(json.Carrera);
+        $("#intDuracion").val(json.Duracion);
     } else {
-        $("#txtUsuario").val("");
-        $("#txtClave").val("");
-        $("#cboRol").val($("#cboRol option:first").val());
-        $("#cboEstado").val(1);
-        $("#txtClave").prop("disabled", false);
+        $("#txtIdPrograma").val(0);
+        $("#txtCarrera").val("");
+        $("#intDuracion").val(1);
     }
     $('#FormModal').modal('show');
 }
-function Guardar() {
+function GuardarPrograma() {
     //alert("Si pasa");
     if ($("#form").valid()) {
 
         var request = {
-            usuario: {
-                IdUsuario: $("#txtid").val(),
-                _Usuario: $("#txtUsuario").val(),
-                Contrasenia: $("#txtClave").val(),
-                IdRol: parseInt($("#cboRol").val()),
-                Estado: parseInt($("#cboEstado").val())
+            programa: {
+                IdPrograma: $("#txtIdPrograma").val(),
+                Carrera: $("#txtCarrera").val(),
+                Duracion: $("#intDuracion").val()
             }
         }
 
         jQuery.ajax({
-            url: postActualizarUsuarioURL,
+            url: postActualizarProgramaURL,
             type: "POST",
             data: JSON.stringify(request),
             dataType: "json",
@@ -111,7 +76,7 @@ function Guardar() {
                 if (data.respuesta) {
                     tablaprograma.ajax.reload();
                     $('#FormModal').modal('hide');
-                    swal("Mensaje", "Se guardó exitosamente al usuario", "success");
+                    swal("Mensaje", "Se guardó exitosamente al programa", "success");
                 } else {
                     swal("Mensaje", "No se pudo guardar los cambios", "warning")
                 }
