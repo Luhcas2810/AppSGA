@@ -134,7 +134,7 @@
     <Compile Include="Controllers\ProgramaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="CursoController.cs" />
+    <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,6 +187,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Usuario\Crear.cshtml" />
     <Content Include="Views\Programa\Crear.cshtml" />
+    <Content Include="Views\Curso\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

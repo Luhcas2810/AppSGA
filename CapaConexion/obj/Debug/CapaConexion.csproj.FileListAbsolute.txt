@@ -41,7 +41,6 @@ C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\bin\Debu
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\bin\Debug\System.Web.WebPages.xml
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\obj\Debug\CapaConexion.csproj.AssemblyReference.cache
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\obj\Debug\CapaConexion.csproj.CoreCompileInputs.cache
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\obj\Debug\CapaConexion.csproj.CopyComplete
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaConexion\obj\Debug\CapaConexion.dll
