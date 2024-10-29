@@ -29,6 +29,13 @@ namespace CapaWeb.Controllers
         }
 
         [HttpPost]
+        public async Task<JsonResult> CrearPrograma(Programa programa)
+        {
+            bool resultado = await ProgramaAD.Instancia.CrearProgramaAsync(programa);
+            return Json(new { respuesta = resultado });
+        }
+
+        [HttpPost]
         public async Task<JsonResult> ActualizarPrograma(Programa programa)
         {
             bool resultado;

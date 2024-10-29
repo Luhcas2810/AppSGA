@@ -40,7 +40,7 @@ $(document).ready(function () {
         responsive: true
     });
 });
-function abrirPopUpForm(json) {
+function abrirPopUpFormPrograma(json) {
     $("#txtid").val(0);
     if (json != null) {
         $("#txtIdPrograma").val(json.IdPrograma);
@@ -54,16 +54,14 @@ function abrirPopUpForm(json) {
     $('#FormModal').modal('show');
 }
 function GuardarPrograma() {
-    //alert("Si pasa");
     if ($("#form").valid()) {
-
         var request = {
             programa: {
                 IdPrograma: $("#txtIdPrograma").val(),
                 Carrera: $("#txtCarrera").val(),
                 Duracion: $("#intDuracion").val()
             }
-        }
+        };
 
         jQuery.ajax({
             url: postActualizarProgramaURL,
@@ -72,21 +70,20 @@ function GuardarPrograma() {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                console.log("Respuesta del servidor:", data); // Depuración: verificar respuesta del servidor
 
-                if (data.respuesta) {
+                if (data.data == true) {
                     tablaprograma.ajax.reload();
                     $('#FormModal').modal('hide');
-                    swal("Mensaje", "Se guardó exitosamente al programa", "success");
+                    swal("Mensaje", "Se guardó exitosamente el programa", "success");
                 } else {
-                    swal("Mensaje", "No se pudo guardar los cambios", "warning")
+                    swal("Mensaje", "No se pudo guardar los cambios", "warning");
                 }
             },
             error: function (error) {
-                console.log(error)
-            },
-            beforeSend: function () {
-
-            },
+                console.log("Error en la solicitud:", error); // Depuración: verificar si hubo un error
+                swal("Mensaje", "Ocurrió un error en la comunicación con el servidor", "error");
+            }
         });
     }
 }

@@ -174,6 +174,7 @@
     <Content Include="Scripts\Views\Curso_Crear.js" />
     <Content Include="Scripts\Views\PlanEstudio_Crear.js" />
     <Content Include="Scripts\Views\Programa_Crear.js" />
+    <Content Include="Scripts\Views\Rol_Crear.js" />
     <Content Include="Scripts\Views\Usuario_Crear.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -194,6 +195,7 @@
     <Content Include="Views\Curso\Crear.cshtml" />
     <Content Include="Views\PlanEstudio\Crear.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Rol\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -201,7 +203,6 @@
     <Folder Include="Views\Aula\" />
     <Folder Include="Views\Departamento\" />
     <Folder Include="Views\Estudiante\" />
-    <Folder Include="Views\Rol\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
