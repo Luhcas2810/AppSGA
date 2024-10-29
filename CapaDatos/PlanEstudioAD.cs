@@ -32,28 +32,28 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> CrearPlanEstudioAsync(PlanEstudio planEstudio)
-        {
-            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
-            {
-                SqlCommand cmd = new SqlCommand("proc_CrearPlanEstudio", oConexion);
-                cmd.Parameters.AddWithValue("@IdPrograma", planEstudio.IdPrograma);
-                cmd.Parameters.AddWithValue("@Semestre", planEstudio.Semestre);
-                cmd.Parameters.AddWithValue("@Estado", planEstudio.Estado);
-                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                cmd.CommandType = CommandType.StoredProcedure;
-                try
-                {
-                    await oConexion.OpenAsync();
-                    await cmd.ExecuteNonQueryAsync();
-                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
+        //public async Task<bool> CrearPlanEstudioAsync(PlanEstudio planEstudio)
+        //{
+        //    using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+        //    {
+        //        SqlCommand cmd = new SqlCommand("proc_CrearPlanEstudio", oConexion);
+        //        cmd.Parameters.AddWithValue("@IdPrograma", planEstudio.IdPrograma);
+        //        cmd.Parameters.AddWithValue("@Semestre", planEstudio.Semestre);
+        //        cmd.Parameters.AddWithValue("@Estado", planEstudio.Estado);
+        //        cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        try
+        //        {
+        //            await oConexion.OpenAsync();
+        //            await cmd.ExecuteNonQueryAsync();
+        //            return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+        //        }
+        //        catch
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //}
 
         public async Task<bool> CambiarEstadoPlanEstudioAsync(int idPlan, bool habilitar)
         {
@@ -73,6 +73,38 @@ namespace CapaDatos
                 catch
                 {
                     return false;
+                }
+            }
+        }
+
+        public async Task<List<PlanEstudio>> ObtenerListaPlanEstudioAsync()
+        {
+            List<PlanEstudio> rptListaPlanEstudio = new List<PlanEstudio>();
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_ObtenerListaPlanEstudio", oConexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    await oConexion.OpenAsync();
+                    SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                    while (dr.Read())
+                    {
+                        rptListaPlanEstudio.Add(new PlanEstudio()
+                        {
+                            IdPlan = Convert.ToInt32(dr["IdPlan"]),
+                            Semestre = Convert.ToInt32(dr["Semestre"]),
+                            Estado = Convert.ToInt32(dr["Estado"]),
+                            _Programa = (await ProgramaAD.Instancia.ObtenerListaProgramaAsync())
+                                .FirstOrDefault(x => x.IdPrograma == Convert.ToInt32(dr["IdPrograma"]))
+                        });
+                    }
+                    oConexion.Close();
+                    return rptListaPlanEstudio;
+                }
+                catch
+                {
+                    return null;
                 }
             }
         }
