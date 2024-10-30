@@ -1,127 +1,85 @@
-﻿var tablaprograma;
+﻿var tablaUsuario;
+
 $(document).ready(function () {
-    //OBTENER ROLES
-    jQuery.ajax({
+    // Cargar roles
+    $.ajax({
         url: getListaRolURL,
         type: "GET",
         dataType: "json",
-        contentType: "application/json; charset=utf-8",
         success: function (data) {
-
             $("#cboRol").html("");
-
-            if (data.data != null) {
+            if (data.data) {
                 $.each(data.data, function (i, item) {
-                    $("<option>").attr({ "value": item.IdRol }).text(item._Rol).appendTo("#cboRol");
-                })
-                $("#cboRol").val($("#cboRol option:first").val());
+                    $("<option>").val(item.IdRol).text(item._Rol).appendTo("#cboRol");
+                });
             }
-        },
-        error: function (error) {
-            console.log(error)
-        },
-        beforeSend: function () {
-        },
+        }
     });
-    tablaprograma = $('#tbUsuario').DataTable({
+
+    // Inicializar DataTable
+    tablaUsuario = $('#tbUsuario').DataTable({
         "ajax": {
             "url": getListaUsuarioURL,
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-            //{
-            //    "data": "IdUsuario", render: function (data) {
-            //        return data.Descripcion
-            //    }
-            //},
             { "data": "_Usuario" },
+            { "data": "IdRol" },
             {
-                "data": "_Rol", render: function (data) {
-                    return data._Rol
+                "data": "Estado", "render": function (data) {
+                    return data === 1 ? "Activo" : "No Activo";
                 }
             },
-            { "data": "Estado" }
-            //{
-            //    "data": "Activo", "render": function (data) {
-            //        if (data) {
-            //            return '<span class="badge badge-success">Activo</span>'
-            //        } else {
-            //            return '<span class="badge badge-danger">No Activo</span>'
-            //        }
-            //    }
-            //},
-            //{
-            //    "data": "IdUsuario", "render": function (data, type, row, meta) {
-            //        return "<button class='btn btn-primary btn-sm' type='button' onclick='abrirPopUpForm(" + JSON.stringify(row) + ")'><i class='fas fa-pen'></i></button>" +
-            //            "<button class='btn btn-danger btn-sm ml-2' type='button' onclick='eliminar(" + data + ")'><i class='fa fa-trash'></i></button>"
-            //    },
-            //    "orderable": false,
-            //    "searchable": false,
-            //    "width": "90px"
-            //}
-
+            {
+                "data": "IdUsuario", "render": function (data, type, row) {
+                    return "<button class='btn btn-primary btn-sm' onclick='abrirPopUpForm(" + JSON.stringify(row) + ")'>Editar</button>";
+                },
+                "orderable": false,
+                "searchable": false
+            }
         ],
-        "language": {
-            "url": getDatatableSpanish
-        },
-        responsive: true
+        "language": { "url": getDatatableSpanish }
     });
 });
-function abrirPopUpForm(json) {
-    $("#txtid").val(0);
-    if (json != null) {
-        $("#txtid").val(json.IdUsuario);
+
+function abrirPopUpFormUsuario(json) {
+    $("#txtIdUsuario").val(0);
+    $("#txtUsuario, #txtContrasenia").val("");
+    $("#cboEstado").val(1);
+
+    if (json) {
+        $("#txtIdUsuario").val(json.IdUsuario);
         $("#txtUsuario").val(json._Usuario);
-        $("#txtClave").val(json.Contrasenia);
-        $("#cboRol").val(json._Rol.IdRol);
-        $("#cboEstado").val(json.Activo == true ? 1 : 0);
-        $("#txtClave").prop("disabled", true);
-    } else {
-        $("#txtUsuario").val("");
-        $("#txtClave").val("");
-        $("#cboRol").val($("#cboRol option:first").val());
-        $("#cboEstado").val(1);
-        $("#txtClave").prop("disabled", false);
+        $("#cboRol").val(json.IdRol);
+        $("#cboEstado").val(json.Estado);
     }
+
     $('#FormModal').modal('show');
 }
-function Guardar() {
-    //alert("Si pasa");
-    if ($("#form").valid()) {
 
-        var request = {
-            usuario: {
-                IdUsuario: $("#txtid").val(),
-                _Usuario: $("#txtUsuario").val(),
-                Contrasenia: $("#txtClave").val(),
-                IdRol: parseInt($("#cboRol").val()),
-                Estado: parseInt($("#cboEstado").val())
+function GuardarUsuario() {
+    var usuario = {
+        IdUsuario: $("#txtIdUsuario").val(),
+        _Usuario: $("#txtUsuario").val(),
+        Contrasenia: $("#txtContrasenia").val(),
+        IdRol: $("#cboRol").val(),
+        Estado: $("#cboEstado").val()
+    };
+
+    $.ajax({
+        url: postCrearUsuarioURL,
+        type: "POST",
+        data: JSON.stringify(usuario),
+        contentType: "application/json",
+        success: function (data) {
+            if (data.data == true) {
+                tablaUsuario.ajax.reload();
+                $('#FormModal').modal('hide');
+                swal("Usuario creado exitosamente", "", "success");
+            } else {
+                swal("No se pudo crear el usuario", "", "warning");
             }
         }
-
-        jQuery.ajax({
-            url: postActualizarUsuarioURL,
-            type: "POST",
-            data: JSON.stringify(request),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-
-                if (data.respuesta) {
-                    tablaprograma.ajax.reload();
-                    $('#FormModal').modal('hide');
-                    swal("Mensaje", "Se guardó exitosamente al usuario", "success");
-                } else {
-                    swal("Mensaje", "No se pudo guardar los cambios", "warning")
-                }
-            },
-            error: function (error) {
-                console.log(error)
-            },
-            beforeSend: function () {
-
-            },
-        });
-    }
+    });
 }

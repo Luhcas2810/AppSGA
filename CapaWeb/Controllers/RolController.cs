@@ -27,5 +27,12 @@ namespace CapaWeb.Controllers
             }
             return Json(new { data = oListaRol }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> CrearRol(Rol rol)
+        {
+            bool resultado = await RolAD.Instancia.CrearRolAsync(rol);
+            return Json(new { data = resultado });
+        }
     }
 }

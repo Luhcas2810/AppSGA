@@ -27,7 +27,7 @@ $(document).ready(function () {
 });
 
 // Función para abrir el modal y cargar datos en caso de edición
-function abrirPopUpForm(json) {
+function abrirPopUpFormRol(json) {
     $("#txtIdRol").val(0);
     if (json != null) {
         $("#txtIdRol").val(json.IdRol);
@@ -55,7 +55,7 @@ function GuardarRol() {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                if (data.respuesta) {
+                if (data.data === true) { // Cambiar data.respuesta a data.data
                     tablaRol.ajax.reload();
                     $('#FormModal').modal('hide');
                     swal("Mensaje", "Se guardó exitosamente el rol", "success");

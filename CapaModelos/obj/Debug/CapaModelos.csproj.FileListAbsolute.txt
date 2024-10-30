@@ -64,6 +64,7 @@ C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\bin\Debug
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\bin\Debug\System.Web.WebPages.xml
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\obj\Debug\CapaModelos.csproj.AssemblyReference.cache
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\obj\Debug\CapaModelos.csproj.CoreCompileInputs.cache
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\obj\Debug\CapaModelos.csproj.CopyComplete
 C:\Users\ale_p\Desktop\UNMSM\Ciclo8-2024-2\Ing_info\AppSGA\CapaModelos\obj\Debug\CapaModelos.dll

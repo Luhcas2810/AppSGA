@@ -14,10 +14,7 @@ namespace CapaDatos
     {
         public static UsuarioAD _instancia = null;
 
-        private UsuarioAD()
-        {
-
-        }
+        private UsuarioAD() { }
 
         public static UsuarioAD Instancia
         {
@@ -48,8 +45,8 @@ namespace CapaDatos
                         {
                             IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
                             _Usuario = dr["Usuario"].ToString(),
-                            _Rol = (await RolAD.Instancia.ObtenerListaRolAsync()).FirstOrDefault(x => x.IdRol == Convert.ToInt32(dr["IdRol"])),
-                            Contrasenia = dr["Contrasenia"].ToString()
+                            IdRol = Convert.ToInt32(dr["IdRol"]),
+                            Estado = Convert.ToInt32(dr["Estado"]),
                         });
                     }
                     oConexion.Close();
@@ -67,34 +64,9 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearUsuario", oConexion);
-                cmd.Parameters.AddWithValue("@IdRol", usuario._Rol.IdRol);
-                cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
                 cmd.Parameters.AddWithValue("@Usuario", usuario._Usuario);
-                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                cmd.CommandType = CommandType.StoredProcedure;
-                try
-                {
-                    await oConexion.OpenAsync();
-                    await cmd.ExecuteNonQueryAsync();
-                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
-
-        public async Task<bool> ModificarUsuarioAsync(Usuario usuario)
-        {
-            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
-            {
-                SqlCommand cmd = new SqlCommand("proc_ModificarUsuario", oConexion);
-                cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
-                cmd.Parameters.AddWithValue("@IdRol", usuario._Rol.IdRol);
+                cmd.Parameters.AddWithValue("@IdRol", usuario.IdRol);
                 cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
-                cmd.Parameters.AddWithValue("@Usuario", usuario._Usuario);
-                cmd.Parameters.AddWithValue("@Estado", usuario.Estado);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
