@@ -39,14 +39,24 @@ namespace CapaDatos
                 {
                     await oConexion.OpenAsync();
                     SqlDataReader dr = await cmd.ExecuteReaderAsync();
+
+                    // Obtenemos todos los roles para relacionarlos luego con los usuarios
+                    List<Rol> listaRoles = await RolAD.Instancia.ObtenerListaRolAsync();
+
                     while (dr.Read())
                     {
+                        // Obtener el rol asociado al usuario
+                        int idRol = Convert.ToInt32(dr["IdRol"]);
+                        Rol rolAsociado = listaRoles.FirstOrDefault(r => r.IdRol == idRol);
+                        
                         rptListaUsuario.Add(new Usuario()
                         {
                             IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
                             _Usuario = dr["Usuario"].ToString(),
-                            IdRol = Convert.ToInt32(dr["IdRol"]),
+                            Contrasenia = dr["Contrasenia"].ToString(),
                             Estado = Convert.ToInt32(dr["Estado"]),
+                            IdRol = idRol,
+                            _Rol = rolAsociado // Asignamos el rol completo
                         });
                     }
                     oConexion.Close();
