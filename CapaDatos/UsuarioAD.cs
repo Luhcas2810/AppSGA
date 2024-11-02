@@ -33,30 +33,27 @@ namespace CapaDatos
             List<Usuario> rptListaUsuario = new List<Usuario>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaUsuario", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListaUsuario", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     await oConexion.OpenAsync();
                     SqlDataReader dr = await cmd.ExecuteReaderAsync();
-
-                    // Obtenemos todos los roles para relacionarlos luego con los usuarios
-                    List<Rol> listaRoles = await RolAD.Instancia.ObtenerListaRolAsync();
-
                     while (dr.Read())
                     {
-                        // Obtener el rol asociado al usuario
-                        int idRol = Convert.ToInt32(dr["IdRol"]);
-                        Rol rolAsociado = listaRoles.FirstOrDefault(r => r.IdRol == idRol);
-                        
                         rptListaUsuario.Add(new Usuario()
                         {
-                            IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
-                            _Usuario = dr["Usuario"].ToString(),
-                            Contrasenia = dr["Contrasenia"].ToString(),
-                            Estado = Convert.ToInt32(dr["Estado"]),
-                            IdRol = idRol,
-                            _Rol = rolAsociado // Asignamos el rol completo
+                            Codigo = Convert.ToInt32(dr["usu_iCodigo"]),
+                            _Usuario = dr["usu_nvcUsuario"].ToString(),
+                            Contrasenia = dr["usu_nvcContrasenia"].ToString(),
+                            Nombre = dr["usu_nvcNombre"].ToString(),
+                            Apellido = dr["usu_nvcApellido"].ToString(),
+                            Identificacion = dr["usu_cIdentificacion"].ToString(),
+                            Correo = dr["usu_nvcCorreo"].ToString(),
+                            Telefono = dr["usu_nvcTelefono"].ToString(),
+                            Direccion = dr["usu_nvcDireccion"].ToString(),
+                            FechaNacimiento = Convert.ToDateTime(dr["usu_dtFechaNacimiento"]),
+                            _Rol = (await RolAD.Instancia.ObtenerListaRolAsync()).FirstOrDefault(r => r.Codigo == Convert.ToInt32(dr["rol_iCodigo"]))
                         });
                     }
                     oConexion.Close();
@@ -69,14 +66,21 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> CrearUsuarioAsync(Usuario usuario)
+        public async Task<bool> AgregarUsuarioAsync(Usuario usuario)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_CrearUsuario", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_AgregarUsuario", oConexion);
+                cmd.Parameters.AddWithValue("@Rol", usuario.CodigoRol);
                 cmd.Parameters.AddWithValue("@Usuario", usuario._Usuario);
-                cmd.Parameters.AddWithValue("@IdRol", usuario.IdRol);
                 cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                cmd.Parameters.AddWithValue("@Identificacion", usuario.Identificacion);
+                cmd.Parameters.AddWithValue("@Correo", usuario.Correo);
+                cmd.Parameters.AddWithValue("@Telefono", usuario.Telefono);
+                cmd.Parameters.AddWithValue("@Direccion", usuario.Direccion);
+                cmd.Parameters.AddWithValue("@Nacimiento", usuario.FechaNacimiento);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

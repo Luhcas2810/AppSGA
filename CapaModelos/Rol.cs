@@ -8,7 +8,7 @@ namespace CapaModelos
 {
     public class Rol
     {
-        public int IdRol { get; set; }
-        public string _Rol { get; set; }
+        public int Codigo { get; set; }
+        public string Descripcion { get; set; }
     }
 }

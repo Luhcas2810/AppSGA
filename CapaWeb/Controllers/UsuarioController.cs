@@ -31,7 +31,7 @@ namespace CapaWeb.Controllers
         [HttpPost]
         public async Task<JsonResult> CrearUsuario(Usuario usuario)
         {
-            bool resultado = await UsuarioAD.Instancia.CrearUsuarioAsync(usuario);
+            bool resultado = await UsuarioAD.Instancia.AgregarUsuarioAsync(usuario);
             return Json(new { data = resultado });
         }
     }

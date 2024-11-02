@@ -27,7 +27,9 @@
                         <tr>
                             <th>Usuario</th>
                             <th>Rol</th>
-                            <th>Estado</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -40,7 +42,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="FormModal" tabindex="-1" role="dialog" aria-labelledby="FormModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="FormModalLabel">Usuario</h5>
@@ -51,24 +53,55 @@
             <div class="modal-body">
                 <form id="formUsuario">
                     <input type="hidden" id="txtIdUsuario" value="0" />
-                    <div class="form-group">
-                        <label for="txtUsuario">Usuario</label>
-                        <input type="text" class="form-control" id="txtUsuario" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cboRol">Rol</label>
+                            <select class="form-control" id="cboRol"></select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtUsuario">Usuario</label>
+                            <input type="text" class="form-control" id="txtUsuario" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="txtContrasenia">Contraseña</label>
-                        <input type="password" class="form-control" id="txtContrasenia" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="txtContrasenia">Contraseña</label>
+                            <input type="password" class="form-control" id="txtContrasenia" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtNombre">Nombre</label>
+                            <input type="text" class="form-control" id="txtNombre" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="cboRol">Rol</label>
-                        <select class="form-control" id="cboRol"></select>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="txtApellido">Apellido</label>
+                            <input type="text" class="form-control" id="txtApellido" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtIdentificacion">DNI</label>
+                            <input type="text" class="form-control" id="txtIdentificacion" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="cboEstado">Estado</label>
-                        <select class="form-control" id="cboEstado">
-                            <option value="1">Activo</option>
-                            <option value="0">No Activo</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="txtCorreo">Correo</label>
+                            <input type="text" class="form-control" id="txtCorreo" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtTelefono">Teléfono</label>
+                            <input type="text" class="form-control" id="txtTelefono" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="txtDireccion">Dirección</label>
+                            <input type="text" class="form-control" id="txtDireccion" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtFechaNacimiento">Fecha de Nacimiento</label>
+                            <input type="text" class="form-control" id="txtFechaNacimiento" />
+                        </div>
                     </div>
                 </form>
             </div>

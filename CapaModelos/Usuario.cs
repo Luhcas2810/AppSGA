@@ -8,11 +8,17 @@ namespace CapaModelos
 {
     public class Usuario
     {
-        public int IdUsuario { get; set; }
+        public int Codigo { get; set; }
+        public int CodigoRol { get; set; }
         public string _Usuario { get; set; }
         public string Contrasenia { get; set; }
-        public int Estado { get; set; }
-        public int IdRol { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Identificacion { get; set; }
+        public string Correo { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public DateTime FechaNacimiento { get; set; }
         public Rol _Rol { get; set; }
     }
 }

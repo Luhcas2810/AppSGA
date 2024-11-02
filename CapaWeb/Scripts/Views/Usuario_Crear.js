@@ -1,7 +1,6 @@
 ﻿var tablaUsuario;
 
 $(document).ready(function () {
-    // Cargar roles
     $.ajax({
         url: getListaRolURL,
         type: "GET",
@@ -10,13 +9,30 @@ $(document).ready(function () {
             $("#cboRol").html("");
             if (data.data) {
                 $.each(data.data, function (i, item) {
-                    $("<option>").val(item.IdRol).text(item._Rol).appendTo("#cboRol");
+                    $("<option>").val(item.Codigo).text(item.Descripcion).appendTo("#cboRol");
                 });
             }
         }
     });
-
-    // Inicializar DataTable
+    $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+    $("#txtFechaNacimiento").datepicker();
     tablaUsuario = $('#tbUsuario').DataTable({
         "ajax": {
             "url": getListaUsuarioURL,
@@ -27,14 +43,12 @@ $(document).ready(function () {
             { "data": "_Usuario" },
             {
                 "data": "_Rol", render: function (data) {
-                    return data ? data._Rol : "Sin Rol"; // Mostramos el nombre del rol o "Sin Rol" si es null
+                    return data.Descripcion;
                 }
             },
-            {
-                "data": "Estado", render: function (data) {
-                    return data === 1 ? "Activo" : "No Activo";
-                }
-            },
+            { "data": "Nombre" },
+            { "data": "Apellido" },
+            { "data": "Correo" },
             {
                 "data": "IdUsuario", render: function (data, type, row) {
                     return "<button class='btn btn-primary btn-sm' onclick='abrirPopUpFormUsuario(" + JSON.stringify(row) + ")'>Editar</button>";
@@ -42,28 +56,45 @@ $(document).ready(function () {
                 "orderable": false,
                 "searchable": false
             }
+            //{
+            //    "data": "Estado", render: function (data) {
+            //        return data === 1 ? "Activo" : "No Activo";
+            //    }
+            //},
         ],
         "language": { "url": getDatatableSpanish }
     });
 });
-
-// Función para abrir el modal y cargar datos en caso de edición
 function abrirPopUpFormUsuario(json) {
-    $("#txtIdUsuario").val(0);
-    $("#txtUsuario, #txtContrasenia").val("");
-    $("#cboEstado").val(1);
-
     if (json) {
-        $("#txtIdUsuario").val(json.IdUsuario);
+        $("#txtIdUsuario").val(json.Codigo);
         $("#txtUsuario").val(json._Usuario);
-        $("#cboRol").val(json._Rol ? json._Rol.IdRol : 0); // Asigna el IdRol del rol si está presente
-        $("#cboEstado").val(json.Estado);
+        $("#cboRol").val(json.CodigoRol);
+        $("#txtContrasenia").val(json.Contrasenia);
+        $("#txtNombre").val(json.Nombre);
+        $("#txtApellido").val(json.Apellido);
+        $("#txtIdentificacion").val(json.Identificacion);
+        $("#txtCorreo").val(json.Correo);
+        $("#txtTelefono").val(json.Telefono);
+        $("#txtDireccion").val(json.Direccion);
+        $("#txtFechaNacimiento").val(ObtenerFecha(json.FechaNacimiento));
+    }
+    else {
+        $("#txtIdUsuario").val(0);
+        $("#txtUsuario").val('');
+        $("#cboRol").val(1);
+        $("#txtContrasenia").val('');
+        $("#txtNombre").val('');
+        $("#txtApellido").val('');
+        $("#txtIdentificacion").val('');
+        $("#txtCorreo").val('');
+        $("#txtTelefono").val('');
+        $("#txtDireccion").val('');
+        $("#txtFechaNacimiento").val(ObtenerFecha(null));
     }
 
     $('#FormModal').modal('show');
 }
-
-// Función para guardar el usuario
 function GuardarUsuario() {
     var usuario = {
         IdUsuario: $("#txtIdUsuario").val(),
@@ -92,4 +123,13 @@ function GuardarUsuario() {
             swal("Error en la comunicación con el servidor", "", "error");
         }
     });
+}
+function ObtenerFecha(date) {
+    if (!date) {
+        date = new Date();
+    }
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var output = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + date.getFullYear();
+    return output;
 }

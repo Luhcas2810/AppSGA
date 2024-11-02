@@ -36,7 +36,7 @@ namespace CapaDatos
             List<Rol> rptListaRol = new List<Rol>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaRol", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListaRol", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -46,8 +46,8 @@ namespace CapaDatos
                     {
                         rptListaRol.Add(new Rol()
                         {
-                            IdRol = Convert.ToInt32(dr["IdRol"]),
-                            _Rol = dr["Rol"].ToString()
+                            Codigo = Convert.ToInt32(dr["rol_iCodigo"]),
+                            Descripcion = dr["rol_nvcDescripcion"].ToString()
                         });
                     }
                     oConexion.Close();
@@ -65,7 +65,7 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearRol", oConexion);
-                cmd.Parameters.AddWithValue("@Rol", rol._Rol);
+                cmd.Parameters.AddWithValue("@Descripcion", rol.Descripcion);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
