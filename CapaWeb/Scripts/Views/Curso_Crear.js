@@ -30,7 +30,7 @@ $(document).ready(function () {
         },
         "columns": [
             { "data": "Nombre" },
-            { "data": "Codigo" },
+            { "data": "IdCurso" },  // Cambié "Codigo" por "IdCurso"
             { "data": "IdPlan" },
             { "data": "Creditos" },
             {
@@ -55,12 +55,10 @@ function abrirPopUpForm(json) {
     if (json != null) {
         $("#txtIdCurso").val(json.IdCurso);
         $("#txtNombre").val(json.Nombre);
-        $("#txtCodigo").val(json.Codigo);
         $("#cboPlan").val(json.IdPlan);
         $("#txtCreditos").val(json.Creditos);
     } else {
         $("#txtNombre").val("");
-        $("#txtCodigo").val("");
         $("#cboPlan").val($("#cboPlan option:first").val());
         $("#txtCreditos").val("");
     }
@@ -74,7 +72,6 @@ function GuardarCurso() {
             curso: {
                 IdCurso: $("#txtIdCurso").val(),
                 Nombre: $("#txtNombre").val(),
-                Codigo: $("#txtCodigo").val(),
                 IdPlan: parseInt($("#cboPlan").val()),
                 Creditos: parseInt($("#txtCreditos").val())
             }

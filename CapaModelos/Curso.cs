@@ -10,7 +10,7 @@ namespace CapaModelos
     {
         public int IdCurso { get; set; }
         public string Nombre { get; set; }
-        public string Codigo { get; set; }
+        //public string Codigo { get; set; }
         public int IdPlan { get; set; }
         public int Creditos { get; set; }
         public PlanEstudio _Plan { get; set; }
