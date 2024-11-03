@@ -76,6 +76,7 @@
     <Compile Include="CursoAD.cs" />
     <Compile Include="DepartamentoAD.cs" />
     <Compile Include="EstudianteAD.cs" />
+    <Compile Include="PeriodoAD.cs" />
     <Compile Include="PlanEstudioAD.cs" />
     <Compile Include="ProgramaAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

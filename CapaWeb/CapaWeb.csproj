@@ -131,6 +131,7 @@
     <Compile Include="Controllers\EstudianteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PeriodoController.cs" />
     <Compile Include="Controllers\PlanEstudioController.cs" />
     <Compile Include="Controllers\ProgramaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -172,6 +173,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Views\Curso_Crear.js" />
+    <Content Include="Scripts\Views\Periodo_Crear.js" />
     <Content Include="Scripts\Views\PlanEstudio_Crear.js" />
     <Content Include="Scripts\Views\Programa_Crear.js" />
     <Content Include="Scripts\Views\Rol_Crear.js" />
@@ -196,6 +198,7 @@
     <Content Include="Views\PlanEstudio\Crear.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Rol\Crear.cshtml" />
+    <Content Include="Views\Periodo\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
