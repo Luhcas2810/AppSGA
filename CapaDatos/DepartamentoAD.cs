@@ -46,8 +46,8 @@ namespace CapaDatos
                     {
                         rptListaDepartamento.Add(new Departamento()
                         {
-                            IdDepartamento = Convert.ToInt32(dr["IdDepartamento"]),
-                            Nombre = dr["Nombre"].ToString(),
+                            IdDepartamento = Convert.ToInt32(dr["dep_iCodigo"]),
+                            Nombre = dr["dep_nvcDescripcion"].ToString(),
                             Jefe = dr["Jefe"].ToString()
                         });
                     }

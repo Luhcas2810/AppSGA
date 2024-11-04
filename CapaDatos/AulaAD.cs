@@ -46,9 +46,9 @@ namespace CapaDatos
                     {
                         rptListaAula.Add(new Aula()
                         {
-                            IdAula = Convert.ToInt32(dr["IdAula"]),
-                            Nombre = dr["Nombre"].ToString(),
-                            Capacidad = Convert.ToInt32(dr["Capacidad"])
+                            IdAula = Convert.ToInt32(dr["aul_iCodigo"]),
+                            Nombre = dr["aul_nvcNombre"].ToString(),
+                            Capacidad = Convert.ToInt32(dr["aul_iCapacidad"])
                         });
                     }
                     oConexion.Close();
@@ -66,6 +66,29 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearAula", oConexion);
+                cmd.Parameters.AddWithValue("@Nombre", aula.Nombre);
+                cmd.Parameters.AddWithValue("@Capacidad", aula.Capacidad);
+                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    await oConexion.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> ModificarAulaAsync(Aula aula)
+        {
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_ModificarAula", oConexion);
+                cmd.Parameters.AddWithValue("@IdAula", aula.IdAula);
                 cmd.Parameters.AddWithValue("@Nombre", aula.Nombre);
                 cmd.Parameters.AddWithValue("@Capacidad", aula.Capacidad);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;

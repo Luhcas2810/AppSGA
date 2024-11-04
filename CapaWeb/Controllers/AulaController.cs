@@ -20,12 +20,35 @@ namespace CapaWeb.Controllers
         [HttpGet]
         public async Task<JsonResult> ObtenerListaAula()
         {
-            List<Aula> oListaAula = await AulaAD.Instancia.ObtenerListaAulaAsync();
-            if (oListaAula == null)
+            List<Aula> listaAulas = await AulaAD.Instancia.ObtenerListaAulaAsync();
+            if (listaAulas == null)
             {
-                oListaAula = new List<Aula>();
+                listaAulas = new List<Aula>();
             }
-            return Json(new { data = oListaAula }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = listaAulas }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> DetalleAula(int idAula)
+        {
+            Aula aula = (await AulaAD.Instancia.ObtenerListaAulaAsync()).FirstOrDefault(x => x.IdAula == idAula);
+            return Json(new { data = aula }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ActualizarAula(Aula aula)
+        {
+            bool resultado;
+            if (aula.IdAula == 0)
+            {
+                // Crear nueva aula
+                resultado = await AulaAD.Instancia.CrearAulaAsync(aula);
+            }
+            else
+            {
+                // Modificar aula existente
+                resultado = await AulaAD.Instancia.ModificarAulaAsync(aula); // Asegúrate de tener este método en AulaAD.cs
+            }
+            return Json(new { respuesta = resultado }, JsonRequestBehavior.AllowGet);
         }
     }
 }
