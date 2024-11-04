@@ -77,7 +77,7 @@ function abrirPopUpFormUsuario(json) {
         $("#txtCorreo").val(json.Correo);
         $("#txtTelefono").val(json.Telefono);
         $("#txtDireccion").val(json.Direccion);
-        $("#txtFechaNacimiento").val(ObtenerFecha(json.FechaNacimiento));
+        $("#txtFechaNacimiento").val(json.FechaNacimiento.split("T")[0]);
     }
     else {
         $("#txtIdUsuario").val(0);
@@ -90,7 +90,7 @@ function abrirPopUpFormUsuario(json) {
         $("#txtCorreo").val('');
         $("#txtTelefono").val('');
         $("#txtDireccion").val('');
-        $("#txtFechaNacimiento").val(ObtenerFecha(null));
+        $("#txtFechaNacimiento").val();
     }
 
     $('#FormModal').modal('show');
@@ -104,7 +104,7 @@ function GuardarUsuario() {
         Estado: $("#cboEstado").val()
     };
 
-    $.ajax({
+    jQuery.ajax({
         url: postCrearUsuarioURL,
         type: "POST",
         data: JSON.stringify(usuario),
@@ -113,9 +113,9 @@ function GuardarUsuario() {
             if (data.data === true) {
                 tablaUsuario.ajax.reload();
                 $('#FormModal').modal('hide');
-                swal("Usuario creado exitosamente", "", "success");
+                swal("Mensaje positivo", "Usuario creado exitosamente", "success");
             } else {
-                swal("No se pudo crear el usuario", "", "warning");
+                swal("Mensaje negativo", "No se pudo crear el usuario", "warning");
             }
         },
         error: function (error) {
@@ -124,12 +124,12 @@ function GuardarUsuario() {
         }
     });
 }
-function ObtenerFecha(date) {
-    if (!date) {
-        date = new Date();
-    }
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var output = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + date.getFullYear();
-    return output;
-}
+//function ObtenerFecha(date) {
+//    if (!date) {
+//        date = new Date();
+//    }
+//    var month = date.getMonth() + 1;
+//    var day = date.getDate();
+//    var output = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + date.getFullYear();
+//    return output;
+//}

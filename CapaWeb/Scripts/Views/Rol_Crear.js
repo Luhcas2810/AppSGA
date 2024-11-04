@@ -56,6 +56,7 @@ function GuardarRol() {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 if (data.data === true) { // Cambiar data.respuesta a data.data
+                    console.log(data.data);
                     tablaRol.ajax.reload();
                     $('#FormModal').modal('hide');
                     swal("Mensaje", "Se guardó exitosamente el rol", "success");

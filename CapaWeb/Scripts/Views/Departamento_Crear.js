@@ -59,7 +59,7 @@ function GuardarDepartamento() {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                if (data.data == true) {
+                if (data.data === true) {
                     tablaDepartamento.ajax.reload();
                     $('#FormModal').modal('hide');
                     swal("Mensaje", "Se guardó exitosamente el departamento", "success");

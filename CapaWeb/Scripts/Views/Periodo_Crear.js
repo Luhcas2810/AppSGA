@@ -11,17 +11,20 @@ $(document).ready(function () {
         "columns": [
             { "data": "Nombre" },
             {
-                "data": "FechaInicio", "render": function (data) {
-                    return new Date(data).toLocaleDateString(); // Formato de fecha
+                "data": "FechaInicio",
+                "render": function (data) {
+                    return convertDateDotNet(data); // Convierte la fecha de .NET al formato deseado
                 }
             },
             {
-                "data": "FechaFin", "render": function (data) {
-                    return new Date(data).toLocaleDateString(); // Formato de fecha
+                "data": "FechaFin",
+                "render": function (data) {
+                    return convertDateDotNet(data); // Convierte la fecha de .NET al formato deseado
                 }
             },
             {
-                "data": "IdPeriodo", "render": function (data, type, row, meta) {
+                "data": "IdPeriodo",
+                "render": function (data, type, row, meta) {
                     return "<button class='btn btn-primary btn-sm' type='button' onclick='abrirPopUpFormPeriodo(" + JSON.stringify(row) + ")'><i class='fas fa-pen'></i></button>";
                 },
                 "orderable": false,
@@ -36,14 +39,28 @@ $(document).ready(function () {
     });
 });
 
+// Función para convertir la fecha en formato .NET a yyyy-MM-dd
+function convertDateDotNet(dotNetDate) {
+    // Extrae los milisegundos del formato /Date(ticks)/
+    var timestamp = parseInt(dotNetDate.match(/\d+/)[0]);
+    var fecha = new Date(timestamp);
+
+    // Formatear como yyyy-MM-dd
+    var year = fecha.getFullYear();
+    var month = String(fecha.getMonth() + 1).padStart(2, '0');
+    var day = String(fecha.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
 // Función para abrir el modal y cargar datos en caso de edición
 function abrirPopUpFormPeriodo(json) {
     $("#txtIdPeriodo").val(0);
     if (json != null) {
         $("#txtIdPeriodo").val(json.IdPeriodo);
         $("#txtNombre").val(json.Nombre);
-        $("#dtFechaInicio").val(json.FechaInicio.split("T")[0]); // Formato de fecha para input date
-        $("#dtFechaFin").val(json.FechaFin.split("T")[0]);       // Formato de fecha para input date
+        $("#dtFechaInicio").val(convertDateDotNet(json.FechaInicio)); // Aplicar formato
+        $("#dtFechaFin").val(convertDateDotNet(json.FechaFin));       // Aplicar formato
     } else {
         $("#txtNombre").val("");
         $("#dtFechaInicio").val("");
