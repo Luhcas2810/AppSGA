@@ -46,7 +46,7 @@ namespace CapaDatos
                     {
                         rptListaAula.Add(new Aula()
                         {
-                            IdAula = Convert.ToInt32(dr["aul_iCodigo"]),
+                            Codigo = Convert.ToInt32(dr["aul_iCodigo"]),
                             Nombre = dr["aul_nvcNombre"].ToString(),
                             Capacidad = Convert.ToInt32(dr["aul_iCapacidad"])
                         });
@@ -88,7 +88,7 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_ModificarAula", oConexion);
-                cmd.Parameters.AddWithValue("@IdAula", aula.IdAula);
+                cmd.Parameters.AddWithValue("@IdAula", aula.Codigo);
                 cmd.Parameters.AddWithValue("@Nombre", aula.Nombre);
                 cmd.Parameters.AddWithValue("@Capacidad", aula.Capacidad);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;

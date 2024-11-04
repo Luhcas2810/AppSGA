@@ -46,9 +46,8 @@ namespace CapaDatos
                     {
                         rptListaDepartamento.Add(new Departamento()
                         {
-                            IdDepartamento = Convert.ToInt32(dr["dep_iCodigo"]),
-                            Nombre = dr["dep_nvcDescripcion"].ToString(),
-                            Jefe = dr["Jefe"].ToString()
+                            Codigo = Convert.ToInt32(dr["dep_iCodigo"]),
+                            Nombre = dr["dep_nvcDescripcion"].ToString()
                         });
                     }
                     oConexion.Close();
@@ -67,7 +66,6 @@ namespace CapaDatos
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearDepartamento", oConexion);
                 cmd.Parameters.AddWithValue("@Nombre", departamento.Nombre);
-                cmd.Parameters.AddWithValue("@Jefe", departamento.Jefe);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

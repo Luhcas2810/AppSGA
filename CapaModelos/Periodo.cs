@@ -8,9 +8,9 @@ namespace CapaModelos
 {
     public class Periodo
     {
-        public int IdPeriodo { get; set; }      // Código del período
-        public string Nombre { get; set; }      // Nombre del período (ej. 2024_2)
-        public DateTime FechaInicio { get; set; } // Fecha de inicio del período
-        public DateTime FechaFin { get; set; }    // Fecha de fin del período
+        public int Codigo { get; set; }
+        public string Nombre { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
     }
 }

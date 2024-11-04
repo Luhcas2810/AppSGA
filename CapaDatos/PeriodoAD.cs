@@ -46,7 +46,7 @@ namespace CapaDatos
                     {
                         listaPeriodos.Add(new Periodo()
                         {
-                            IdPeriodo = Convert.ToInt32(dr["per_iCodigo"]),
+                            Codigo = Convert.ToInt32(dr["per_iCodigo"]),
                             Nombre = dr["per_nvcPeriodo"].ToString(),
                             FechaInicio = Convert.ToDateTime(dr["per_dtFechaInicio"]),
                             FechaFin = Convert.ToDateTime(dr["per_dtFechaFin"])
@@ -90,7 +90,7 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_ModificarPeriodo", oConexion);
-                cmd.Parameters.AddWithValue("@Codigo", periodo.IdPeriodo);
+                cmd.Parameters.AddWithValue("@Codigo", periodo.Codigo);
                 cmd.Parameters.AddWithValue("@Nombre", periodo.Nombre);
                 cmd.Parameters.AddWithValue("@FechaInicio", periodo.FechaInicio);
                 cmd.Parameters.AddWithValue("@FechaFin", periodo.FechaFin);

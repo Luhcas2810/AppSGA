@@ -36,7 +36,7 @@ namespace CapaDatos
             List<Estudiante> rptListaEstudiante = new List<Estudiante>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaPrograma", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListarEstudiante", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -46,15 +46,9 @@ namespace CapaDatos
                     {
                         rptListaEstudiante.Add(new Estudiante()
                         {
-                            IdEstudiante = Convert.ToInt32(dr["IdEstudiante"]),
-                            Nombre = dr["Nombre"].ToString(),
-                            Apellido = dr["Apellido"].ToString(),
-                            Correo = dr["Correo"].ToString(),
-                            Direccion = dr["Direccion"].ToString(),
-                            DNI = dr["DNI"].ToString(),
-                            FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]),
-                            _Programa = (await ProgramaAD.Instancia.ObtenerListaProgramaAsync()).FirstOrDefault(x => x.IdPrograma == Convert.ToInt32(dr["IdPrograma"])),
-                            Telefono = dr["Telefono"].ToString()
+                            Codigo = Convert.ToInt32(dr["est_iCodigo"]),
+                            CodigoUsuario = Convert.ToInt32(dr["usu_iCodigo"]),
+                            CodigoEscuela = Convert.ToInt32(dr["esc_iCodigo"])
                         });
                     }
                     oConexion.Close();

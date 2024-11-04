@@ -8,13 +8,13 @@ namespace CapaModelos
 {
     public class Calificacion
     {
-        public int IdCalificacion { get; set; } // Código de calificación
-        public int IdEstudiante { get; set; }   // Código de estudiante
-        public int IdSeccion { get; set; }      // Código de sección
-        public string Tipo { get; set; }        // Tipo de calificación
-        public int ValorCalificacion { get; set; } // Calificación en número
+        public int Codigo { get; set; }
+        public int CodigoEstudiante { get; set; }
+        public int CodigoSeccion { get; set; }
+        public string Tipo { get; set; }
+        public int ValorCalificacion { get; set; }
 
-        public Estudiante _Estudiante { get; set; } // Objeto Estudiante
-        public Seccion _Seccion { get; set; }       // Objeto Sección
+        public Estudiante _Estudiante { get; set; }
+        public Seccion _Seccion { get; set; }
     }
 }

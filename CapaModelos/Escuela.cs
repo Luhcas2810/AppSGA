@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CapaModelos
 {
-    public class Programa
+    public class Escuela
     {
-        public int IdPrograma { get; set; }
+        public int Codigo { get; set; }
         public string Carrera { get; set; }
         public int Duracion { get; set; }
     }

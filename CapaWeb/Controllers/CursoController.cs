@@ -32,7 +32,7 @@ namespace CapaWeb.Controllers
 
         public async Task<JsonResult> DetalleCurso(int idCurso)
         {
-            Curso curso = (await CursoAD.Instancia.ObtenerListaCursoAsync()).FirstOrDefault(x => x.IdCurso == idCurso);
+            Curso curso = (await CursoAD.Instancia.ObtenerListaCursoAsync()).FirstOrDefault(x => x.Codigo == idCurso);
             return Json(new { data = curso }, JsonRequestBehavior.AllowGet);
         }
 
@@ -40,7 +40,7 @@ namespace CapaWeb.Controllers
         public async Task<JsonResult> ActualizarCurso(Curso curso)
         {
             bool resultado;
-            if (curso.IdCurso == 0)
+            if (curso.Codigo == 0)
             {
                 // Crear nuevo curso
                 resultado = await CursoAD.Instancia.CrearCursoAsync(curso);

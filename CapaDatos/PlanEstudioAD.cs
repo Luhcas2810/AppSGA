@@ -92,11 +92,11 @@ namespace CapaDatos
                     {
                         rptListaPlanEstudio.Add(new PlanEstudio()
                         {
-                            IdPlan = Convert.ToInt32(dr["IdPlan"]),
-                            Semestre = Convert.ToInt32(dr["Semestre"]),
-                            Estado = Convert.ToInt32(dr["Estado"]),
-                            _Programa = (await ProgramaAD.Instancia.ObtenerListaProgramaAsync())
-                                .FirstOrDefault(x => x.IdPrograma == Convert.ToInt32(dr["IdPrograma"]))
+                            Codigo = Convert.ToInt32(dr["pla_iCodigo"]),
+                            CodigoEscuela = Convert.ToInt32(dr["esc_iCodigo"]),
+                            Descripcion = dr["pla_nvcDescripcion"].ToString(),
+                            _Escuela = (await EscuelaAD.Instancia.ObtenerListaEscuelaAsync())
+                                .FirstOrDefault(x => x.Codigo == Convert.ToInt32(dr["esc_iCodigo"]))
                         });
                     }
                     oConexion.Close();

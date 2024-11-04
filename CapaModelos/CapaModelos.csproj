@@ -82,7 +82,7 @@
     <Compile Include="MatriculaSeccion.cs" />
     <Compile Include="Periodo.cs" />
     <Compile Include="PlanEstudio.cs" />
-    <Compile Include="Programa.cs" />
+    <Compile Include="Escuela.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Seccion.cs" />

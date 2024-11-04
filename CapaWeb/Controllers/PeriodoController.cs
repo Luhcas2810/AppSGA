@@ -40,7 +40,7 @@ namespace CapaWeb.Controllers
         public async Task<JsonResult> ActualizarPeriodo(Periodo periodo)
         {
             bool resultado;
-            if (periodo.IdPeriodo == 0)
+            if (periodo.Codigo == 0)
             {
                 resultado = await PeriodoAD.Instancia.CrearPeriodoAsync(periodo);
             }

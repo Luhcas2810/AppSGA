@@ -30,7 +30,7 @@ namespace CapaWeb.Controllers
 
         public async Task<JsonResult> DetalleAula(int idAula)
         {
-            Aula aula = (await AulaAD.Instancia.ObtenerListaAulaAsync()).FirstOrDefault(x => x.IdAula == idAula);
+            Aula aula = (await AulaAD.Instancia.ObtenerListaAulaAsync()).FirstOrDefault(x => x.Codigo == idAula);
             return Json(new { data = aula }, JsonRequestBehavior.AllowGet);
         }
 
@@ -38,7 +38,7 @@ namespace CapaWeb.Controllers
         public async Task<JsonResult> ActualizarAula(Aula aula)
         {
             bool resultado;
-            if (aula.IdAula == 0)
+            if (aula.Codigo == 0)
             {
                 // Crear nueva aula
                 resultado = await AulaAD.Instancia.CrearAulaAsync(aula);

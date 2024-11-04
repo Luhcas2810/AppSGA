@@ -32,7 +32,7 @@ namespace CapaWeb.Controllers
         public async Task<JsonResult> ActualizarDepartamento(Departamento departamento)
         {
             bool resultado;
-            if (departamento.IdDepartamento == 0)
+            if (departamento.Codigo == 0)
             {
                 resultado = await DepartamentoAD.Instancia.CrearDepartamentoAsync(departamento);
             }

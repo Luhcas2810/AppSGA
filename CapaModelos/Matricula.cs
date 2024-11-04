@@ -8,11 +8,11 @@ namespace CapaModelos
 {
     public class Matricula
     {
-        public int IdMatricula { get; set; } // Código de matrícula
-        public int IdEstudiante { get; set; } // Código de estudiante
-        public int IdPeriodo { get; set; }    // Código de período
+        public int Codigo { get; set; }
+        public int CodigoEstudiante { get; set; }
+        public int CodigoPeriodo { get; set; }
 
-        public Estudiante _Estudiante { get; set; } // para llamar su nombre
-        public Periodo _Periodo { get; set; }       // Objeto Periodo (AUN NO CREADO)
+        public Estudiante _Estudiante { get; set; }
+        public Periodo _Periodo { get; set; }
     }
 }

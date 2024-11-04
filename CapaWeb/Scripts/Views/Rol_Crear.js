@@ -9,10 +9,10 @@ $(document).ready(function () {
             "datatype": "json"
         },
         "columns": [
-            { "data": "_Rol" },
+            { "data": "Descripcion" },
             {
-                "data": "IdRol", "render": function (data, type, row) {
-                    return "<button class='btn btn-primary btn-sm' type='button' onclick='abrirPopUpForm(" + JSON.stringify(row) + ")'><i class='fas fa-pen'></i></button>";
+                "data": "Codigo", "render": function (data, type, row) {
+                    return "<button class='btn btn-primary btn-sm' type='button' onclick='abrirPopUpFormRol(" + JSON.stringify(row) + ")'><i class='fas fa-pen'></i></button>";
                 },
                 "orderable": false,
                 "searchable": false,
@@ -28,11 +28,11 @@ $(document).ready(function () {
 
 // Función para abrir el modal y cargar datos en caso de edición
 function abrirPopUpFormRol(json) {
-    $("#txtIdRol").val(0);
     if (json != null) {
-        $("#txtIdRol").val(json.IdRol);
-        $("#txtRol").val(json._Rol);
+        $("#txtIdRol").val(json.Codigo);
+        $("#txtRol").val(json.Descripcion);
     } else {
+        $("#txtIdRol").val(0);
         $("#txtRol").val("");
     }
     $('#FormModal').modal('show');
@@ -43,8 +43,8 @@ function GuardarRol() {
     if ($("#form").valid()) {
         var request = {
             rol: {
-                IdRol: $("#txtIdRol").val(),
-                _Rol: $("#txtRol").val()
+                Codigo: $("#txtIdRol").val(),
+                Descripcion: $("#txtRol").val()
             }
         };
 

@@ -8,7 +8,7 @@ namespace CapaModelos
 {
     public class Aula
     {
-        public int IdAula { get; set; }
+        public int Codigo { get; set; }
         public string Nombre { get; set; }
         public int Capacidad { get; set; }
     }

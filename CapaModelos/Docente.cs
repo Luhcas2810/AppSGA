@@ -8,11 +8,11 @@ namespace CapaModelos
 {
     public class Docente
     {
-        public int IdDocente { get; set; }       // Código del docente
-        public int IdUsuario { get; set; }       // Código del usuario asociado
-        public int IdDepartamento { get; set; }  // Código del departamento asociado
+        public int CodigoDocente { get; set; }
+        public int CodigoUsuario { get; set; }
+        public int CodigoDepartamento { get; set; }
 
-        public Usuario _Usuario { get; set; }         // Objeto Usuario
-        public Departamento _Departamento { get; set; } // Objeto Departamento
+        public Usuario _Usuario { get; set; }
+        public Departamento _Departamento { get; set; }
     }
 }

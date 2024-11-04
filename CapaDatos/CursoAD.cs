@@ -46,12 +46,12 @@ namespace CapaDatos
                     {
                         listaCursos.Add(new Curso()
                         {
-                            IdCurso = Convert.ToInt32(dr["cur_iCodigo"]),
+                            Codigo = Convert.ToInt32(dr["cur_iCodigo"]),
                             Nombre = dr["cur_nvcNombre"].ToString(),
                             //Codigo = dr["Codigo"].ToString(), 
                             //IdPlan = Convert.ToInt32(dr["IdPlan"]),
                             Creditos = Convert.ToInt32(dr["cur_iCreditos"]),
-                            IdPlan = Convert.ToInt32(dr["pla_iCodigo"])
+                            CodigoPlan = Convert.ToInt32(dr["pla_iCodigo"])
                         });
                     }
                     oConexion.Close();
@@ -70,8 +70,8 @@ namespace CapaDatos
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearCurso", oConexion);
                 cmd.Parameters.AddWithValue("@Nombre", curso.Nombre);
-                cmd.Parameters.AddWithValue("@IdCurso", curso.IdCurso);
-                cmd.Parameters.AddWithValue("@IdPlan", curso.IdPlan);
+                cmd.Parameters.AddWithValue("@IdCurso", curso.Codigo);
+                cmd.Parameters.AddWithValue("@IdPlan", curso.CodigoPlan);
                 cmd.Parameters.AddWithValue("@Creditos", curso.Creditos);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -93,10 +93,10 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_ModificarCurso", oConexion);
-                cmd.Parameters.AddWithValue("@IdCurso", curso.IdCurso);
+                cmd.Parameters.AddWithValue("@IdCurso", curso.Codigo);
                 cmd.Parameters.AddWithValue("@Nombre", curso.Nombre);
                 //cmd.Parameters.AddWithValue("@Codigo", curso.Codigo);
-                cmd.Parameters.AddWithValue("@IdPlan", curso.IdPlan);
+                cmd.Parameters.AddWithValue("@IdPlan", curso.CodigoPlan);
                 cmd.Parameters.AddWithValue("@Creditos", curso.Creditos);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;

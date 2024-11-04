@@ -64,7 +64,7 @@ namespace CapaDatos
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_CrearRol", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_AgregarRol", oConexion);
                 cmd.Parameters.AddWithValue("@Descripcion", rol.Descripcion);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -74,8 +74,9 @@ namespace CapaDatos
                     await cmd.ExecuteNonQueryAsync();
                     return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                 }
-                catch
+                catch(SqlException ex)
                 {
+                    string mensaje = ex.Message;
                     return false;
                 }
             }

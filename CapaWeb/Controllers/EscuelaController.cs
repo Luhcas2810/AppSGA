@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace CapaWeb.Controllers
 {
-    public class ProgramaController : Controller
+    public class EscuelaController : Controller
     {
         // GET: Programa
         public ActionResult Crear()
@@ -18,30 +18,30 @@ namespace CapaWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> ObtenerListaPrograma()
+        public async Task<JsonResult> ObtenerListaEscuela()
         {
-            List<Programa> oListaPrograma = await ProgramaAD.Instancia.ObtenerListaProgramaAsync();
+            List<Escuela> oListaPrograma = await EscuelaAD.Instancia.ObtenerListaEscuelaAsync();
             if(oListaPrograma == null)
             {
-                oListaPrograma = new List<Programa>();
+                oListaPrograma = new List<Escuela>();
             }
             return Json(new { data = oListaPrograma }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<JsonResult> CrearPrograma(Programa programa)
+        public async Task<JsonResult> CrearEscuela(Escuela programa)
         {
-            bool resultado = await ProgramaAD.Instancia.CrearProgramaAsync(programa);
+            bool resultado = await EscuelaAD.Instancia.CrearEscuelaAsync(programa);
             return Json(new { respuesta = resultado });
         }
 
         [HttpPost]
-        public async Task<JsonResult> ActualizarPrograma(Programa programa)
+        public async Task<JsonResult> ActualizarEscuela(Escuela escuela)
         {
             bool resultado;
-            if (programa.IdPrograma == 0)
+            if (escuela.Codigo == 0)
             {
-                resultado = await ProgramaAD.Instancia.CrearProgramaAsync(programa);
+                resultado = await EscuelaAD.Instancia.CrearEscuelaAsync(escuela);
             }
             else
             {

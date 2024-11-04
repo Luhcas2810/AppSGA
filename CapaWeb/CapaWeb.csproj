@@ -133,7 +133,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PeriodoController.cs" />
     <Compile Include="Controllers\PlanEstudioController.cs" />
-    <Compile Include="Controllers\ProgramaController.cs" />
+    <Compile Include="Controllers\EscuelaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\CursoController.cs" />

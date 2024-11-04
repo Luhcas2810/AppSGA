@@ -8,8 +8,7 @@ namespace CapaModelos
 {
     public class Departamento
     {
-        public int IdDepartamento { get; set; }
+        public int Codigo { get; set; }
         public string Nombre { get; set; }
-        public string Jefe { get; set; }
     }
 }

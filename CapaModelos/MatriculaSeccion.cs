@@ -8,11 +8,12 @@ namespace CapaModelos
 {
     public class MatriculaSeccion
     {
-        public int IdMatriculaSeccion { get; set; } // Código de matrícula-sección
-        public int IdMatricula { get; set; }        // Código de matrícula
-        public int IdSeccion { get; set; }          // Código de sección
+        public int Codigo { get; set; }
+        public int CodigoMatricula { get; set; }
+        public int CodigoSeccion { get; set; }
+        public int Estado { get; set; }
 
-        public Matricula _Matricula { get; set; }   // Objeto Matricula
-        public Seccion _Seccion { get; set; }       // Objeto Sección (AUN NO CREADO)
+        public Matricula _Matricula { get; set; }
+        public Seccion _Seccion { get; set; }
     }
 }

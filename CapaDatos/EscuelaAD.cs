@@ -10,33 +10,33 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class ProgramaAD
+    public class EscuelaAD
     {
-        public static ProgramaAD _instancia = null;
+        public static EscuelaAD _instancia = null;
 
-        private ProgramaAD()
+        private EscuelaAD()
         {
 
         }
 
-        public static ProgramaAD Instancia
+        public static EscuelaAD Instancia
         {
             get
             {
                 if (_instancia == null)
                 {
-                    _instancia = new ProgramaAD();
+                    _instancia = new EscuelaAD();
                 }
                 return _instancia;
             }
         }
 
-        public async Task<List<Programa>> ObtenerListaProgramaAsync()
+        public async Task<List<Escuela>> ObtenerListaEscuelaAsync()
         {
-            List<Programa> rptListaPrograma = new List<Programa>();
+            List<Escuela> rptListaPrograma = new List<Escuela>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaPrograma", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListarEscuela", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -44,11 +44,11 @@ namespace CapaDatos
                     SqlDataReader dr = await cmd.ExecuteReaderAsync();
                     while (dr.Read())
                     {
-                        rptListaPrograma.Add(new Programa()
+                        rptListaPrograma.Add(new Escuela()
                         {
-                            IdPrograma = Convert.ToInt32(dr["IdPrograma"]),
-                            Duracion = Convert.ToInt32(dr["Duracion"]),
-                            Carrera = dr["Carrera"].ToString()
+                            Codigo = Convert.ToInt32(dr["esc_iCodigo"]),
+                            Carrera = dr["esc_nvcCarrera"].ToString(),
+                            Duracion = Convert.ToInt32(dr["esc_iDuracion"])
                         });
                     }
                     oConexion.Close();
@@ -61,7 +61,7 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> CrearProgramaAsync(Programa programa)
+        public async Task<bool> CrearEscuelaAsync(Escuela programa)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
