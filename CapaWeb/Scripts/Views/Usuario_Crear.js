@@ -40,7 +40,7 @@ $(document).ready(function () {
             "datatype": "json"
         },
         "columns": [
-            { "data": "_Usuario" },
+            { "data": "Codigo" },
             {
                 "data": "_Rol", render: function (data) {
                     return data.Descripcion;
@@ -67,7 +67,7 @@ $(document).ready(function () {
 });
 function abrirPopUpFormUsuario(json) {
     if (json) {
-        $("#txtIdUsuario").val(json.Codigo);
+        $("#txtCodigo").val(json.Codigo);
         $("#txtUsuario").val(json._Usuario);
         $("#cboRol").val(json.CodigoRol);
         $("#txtContrasenia").val(json.Contrasenia);
@@ -77,10 +77,10 @@ function abrirPopUpFormUsuario(json) {
         $("#txtCorreo").val(json.Correo);
         $("#txtTelefono").val(json.Telefono);
         $("#txtDireccion").val(json.Direccion);
-        $("#txtFechaNacimiento").val(json.FechaNacimiento.split("T")[0]);
+        $("#dtFechaNacimiento").val(json.FechaNacimiento.split("T")[0]);
     }
     else {
-        $("#txtIdUsuario").val(0);
+        $("#txtCodigo").val(0);
         $("#txtUsuario").val('');
         $("#cboRol").val(1);
         $("#txtContrasenia").val('');
@@ -90,18 +90,25 @@ function abrirPopUpFormUsuario(json) {
         $("#txtCorreo").val('');
         $("#txtTelefono").val('');
         $("#txtDireccion").val('');
-        $("#txtFechaNacimiento").val();
+        $("#dtFechaNacimiento").val();
     }
 
     $('#FormModal').modal('show');
 }
 function GuardarUsuario() {
     var usuario = {
-        IdUsuario: $("#txtIdUsuario").val(),
+        Codigo: $("#txtCodigo").val(),
+        CodigoRol: $("#cboRol").val(),
         _Usuario: $("#txtUsuario").val(),
         Contrasenia: $("#txtContrasenia").val(),
-        IdRol: $("#cboRol").val(),
-        Estado: $("#cboEstado").val()
+        Nombre: $("#txtNombre").val(),
+        Apellido: $("#txtApellido").val(),
+        Identificacion: $("#txtIdentificacion").val(),
+        Correo: $("#txtCorreo").val(),
+        Telefono: $("#txtTelefono").val(),
+        Direccion: $("#txtDireccion").val(),
+        FechaNacimiento: $("#dtFechaNacimiento").val()
+        
     };
 
     jQuery.ajax({
