@@ -36,7 +36,7 @@ namespace CapaDatos
             List<Departamento> rptListaDepartamento = new List<Departamento>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaDepartamento", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListaDepartamento", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -47,7 +47,7 @@ namespace CapaDatos
                         rptListaDepartamento.Add(new Departamento()
                         {
                             Codigo = Convert.ToInt32(dr["dep_iCodigo"]),
-                            Nombre = dr["dep_nvcDescripcion"].ToString()
+                            Descripcion = dr["dep_nvcDescripcion"].ToString()
                         });
                     }
                     oConexion.Close();
@@ -65,7 +65,7 @@ namespace CapaDatos
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearDepartamento", oConexion);
-                cmd.Parameters.AddWithValue("@Nombre", departamento.Nombre);
+                cmd.Parameters.AddWithValue("@Nombre", departamento.Descripcion);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

@@ -14,6 +14,41 @@ $(document).ready(function () {
             }
         }
     });
+    $('#cboRol').on('change', function () {
+        var Id = $(this).val();
+        if (Id == 3) {
+            document.getElementById("lblEscDep").innerText = "Escuela";
+            $.ajax({
+                url: getListaEscuelaURL,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $("#cboEscDep").html("");
+                    if (data.data) {
+                        $.each(data.data, function (i, item) {
+                            $("<option>").val(item.Codigo).text(item.Carrera).appendTo("#cboEscDep");
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            document.getElementById("lblEscDep").innerText = "Departamento";
+            $.ajax({
+                url: getListaDepartamentoURL,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $("#cboEscDep").html("");
+                    if (data.data) {
+                        $.each(data.data, function (i, item) {
+                            $("<option>").val(item.Codigo).text(item.Descripcion).appendTo("#cboEscDep");
+                        });
+                    }
+                }
+            });
+        }
+    });
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
         prevText: '< Ant',
@@ -69,53 +104,72 @@ function abrirPopUpFormUsuario(json) {
     if (json) {
         $("#txtCodigo").val(json.Codigo);
         $("#txtUsuario").val(json._Usuario);
-        $("#cboRol").val(json.CodigoRol);
+        $("#txtUsuario").prop("readonly", true);
+        $("#cboRol").val(json._Rol.Codigo);
+        $("#cboRol").prop("disabled", true);
         $("#txtContrasenia").val(json.Contrasenia);
         $("#txtNombre").val(json.Nombre);
+        $("#txtNombre").prop("readonly", true);
         $("#txtApellido").val(json.Apellido);
+        $("#txtApellido").prop("readonly", true);
         $("#txtIdentificacion").val(json.Identificacion);
+        $("#txtIdentificacion").prop("readonly", true);
         $("#txtCorreo").val(json.Correo);
         $("#txtTelefono").val(json.Telefono);
         $("#txtDireccion").val(json.Direccion);
-        $("#dtFechaNacimiento").val(json.FechaNacimiento.split("T")[0]);
+        $("#dtFechaNacimiento").val(json.fechaNacimiento);
+        $("#dtFechaNacimiento").prop("disabled", true);
+        $("#cboEscDep").val(json.EscDep);
+        $("#cboEscDep").prop("disabled", true);
     }
     else {
         $("#txtCodigo").val(0);
         $("#txtUsuario").val('');
+        $("#txtUsuario").prop("readonly", false);
         $("#cboRol").val(1);
+        $("#cboRol").prop("disabled", false);
         $("#txtContrasenia").val('');
         $("#txtNombre").val('');
+        $("#txtNombre").prop("readonly", false);
         $("#txtApellido").val('');
+        $("#txtApellido").prop("readonly", false);
         $("#txtIdentificacion").val('');
+        $("#txtIdentificacion").prop("readonly", false);
         $("#txtCorreo").val('');
         $("#txtTelefono").val('');
         $("#txtDireccion").val('');
-        $("#dtFechaNacimiento").val();
+        $("#dtFechaNacimiento").val(ObtenerFecha());
+        $("#dtFechaNacimiento").prop("disabled", false);
+        $("#cboEscDep").val(1);
+        $("#cboEscDep").prop("disabled", false);
     }
-
+    $('#cboRol').trigger('change');
     $('#FormModal').modal('show');
 }
 function GuardarUsuario() {
-    var usuario = {
-        Codigo: $("#txtCodigo").val(),
-        CodigoRol: $("#cboRol").val(),
-        _Usuario: $("#txtUsuario").val(),
-        Contrasenia: $("#txtContrasenia").val(),
-        Nombre: $("#txtNombre").val(),
-        Apellido: $("#txtApellido").val(),
-        Identificacion: $("#txtIdentificacion").val(),
-        Correo: $("#txtCorreo").val(),
-        Telefono: $("#txtTelefono").val(),
-        Direccion: $("#txtDireccion").val(),
-        FechaNacimiento: $("#dtFechaNacimiento").val()
-        
-    };
+    var request = {
+        usuario : {
+            Codigo: $("#txtCodigo").val(),
+            CodigoRol: $("#cboRol").val(),
+            _Usuario: $("#txtUsuario").val(),
+            Contrasenia: $("#txtContrasenia").val(),
+            Nombre: $("#txtNombre").val(),
+            Apellido: $("#txtApellido").val(),
+            Identificacion: $("#txtIdentificacion").val(),
+            Correo: $("#txtCorreo").val(),
+            Telefono: $("#txtTelefono").val(),
+            Direccion: $("#txtDireccion").val(),
+            FechaNacimiento: $("#dtFechaNacimiento").val(),
+            EscDep: $("#cboEscDep").val()
+        }
+    }
 
     jQuery.ajax({
         url: postCrearUsuarioURL,
         type: "POST",
-        data: JSON.stringify(usuario),
-        contentType: "application/json",
+        data: JSON.stringify(request),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.data === true) {
                 tablaUsuario.ajax.reload();
@@ -131,12 +185,11 @@ function GuardarUsuario() {
         }
     });
 }
-//function ObtenerFecha(date) {
-//    if (!date) {
-//        date = new Date();
-//    }
-//    var month = date.getMonth() + 1;
-//    var day = date.getDate();
-//    var output = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + date.getFullYear();
-//    return output;
-//}
+function ObtenerFecha() {
+    let today = new Date();
+    let day = String(today.getDate()).padStart(2, '0');
+    let month = String(today.getMonth() + 1).padStart(2, '0');
+    let year = today.getFullYear();
+    let formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+}

@@ -19,6 +19,14 @@ namespace CapaModelos
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public int EscDep { get; set; }
+        public string fechaNacimiento
+        {
+            get
+            {
+                return FechaNacimiento.ToString("yyyy-MM-dd");
+            }
+        }
         public Rol _Rol { get; set; }
     }
 }

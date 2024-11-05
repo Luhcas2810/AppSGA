@@ -55,61 +55,65 @@
                     <input type="hidden" id="txtIdUsuario" value="0" />
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="cboRol">Rol</label>
-                            <select class="form-control" id="cboRol"></select>
-                        </div>
-                        <div class="form-group col-md-6">
                             <label for="txtUsuario">Usuario</label>
                             <input type="text" class="form-control" id="txtUsuario" />
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="txtContrasenia">Contraseña</label>
                             <input type="password" class="form-control" id="txtContrasenia" />
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="txtNombre">Nombre</label>
                             <input type="text" class="form-control" id="txtNombre" />
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="txtApellido">Apellido</label>
                             <input type="text" class="form-control" id="txtApellido" />
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="txtIdentificacion">DNI</label>
                             <input type="text" class="form-control" id="txtIdentificacion" />
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="txtCorreo">Correo</label>
                             <input type="text" class="form-control" id="txtCorreo" />
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="txtTelefono">Teléfono</label>
                             <input type="text" class="form-control" id="txtTelefono" />
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="dtFechaNacimiento">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="dtFechaNacimiento" name="dtFechaNacimiento">
+                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="txtDireccion">Dirección</label>
                             <input type="text" class="form-control" id="txtDireccion" />
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label for="FechaNacimiento" class="col-sm-3 col-form-label col-form-label-sm">FechaNacimiento</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control form-control-sm model" id="dtFechaNacimiento" name="dtFechaNacimiento">
-                            </div>
-                        </div>
 
                         @*<div class="form-group col-md-6">
-                            <label for="txtFechaNacimiento">Fecha de Nacimiento</label>
-                            <input type="text" class="form-control" id="txtFechaNacimiento" />
-                        </div>*@
+                <label for="txtFechaNacimiento">Fecha de Nacimiento</label>
+                <input type="text" class="form-control" id="txtFechaNacimiento" />
+            </div>*@
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cboRol">Rol</label>
+                            <select class="form-control" id="cboRol"></select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label id="lblEscDep" for="cboEscDep">Escuela</label>
+                            <select class="form-control" id="cboEscDep"></select>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -138,7 +142,9 @@
     <script type="text/javascript">
         var getListaUsuarioURL = '@Url.Action("ObtenerListaUsuario", "Usuario")';
         @*var postActualizarUsuarioURL = '@Url.Action("ActualizarUsuario", "Usuario")';*@
-         var postCrearUsuarioURL = '@Url.Action("CrearUsuario", "Usuario")';
+        var postCrearUsuarioURL = '@Url.Action("CrearUsuario", "Usuario")';
         var getListaRolURL = '@Url.Action("ObtenerListaRol", "Rol")';
+        var getListaDepartamentoURL = '@Url.Action("ObtenerListaDepartamento", "Departamento")';
+        var getListaEscuelaURL = '@Url.Action("ObtenerListaEscuela", "Escuela")';
     </script>
 }

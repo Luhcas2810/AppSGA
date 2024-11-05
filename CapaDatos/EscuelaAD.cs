@@ -36,7 +36,7 @@ namespace CapaDatos
             List<Escuela> rptListaPrograma = new List<Escuela>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ListarEscuela", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListaEscuela", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
