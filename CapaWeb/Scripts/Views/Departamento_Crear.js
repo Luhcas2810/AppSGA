@@ -48,7 +48,7 @@ function GuardarDepartamento() {
         var request = {
             departamento: {
                 Codigo: $("#txtCodigo").val(),
-                Descripcion: $("#txtDescripcion").val(),
+                Descripcion: $("#txtDescripcion").val()
                 /*Jefe: $("#txtJefe").val()*/
             }
         };

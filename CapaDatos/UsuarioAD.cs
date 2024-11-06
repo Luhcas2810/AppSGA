@@ -72,12 +72,10 @@ namespace CapaDatos
             {
                 SqlCommand cmd = new SqlCommand("proc_AgregarUsuario", oConexion);
                 cmd.Parameters.AddWithValue("@Rol", usuario.CodigoRol);
-                cmd.Parameters.AddWithValue("@Usuario", usuario._Usuario);
                 cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
                 cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                 cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido);
                 cmd.Parameters.AddWithValue("@Identificacion", usuario.Identificacion);
-                cmd.Parameters.AddWithValue("@Correo", usuario.Correo);
                 cmd.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                 cmd.Parameters.AddWithValue("@Direccion", usuario.Direccion);
                 cmd.Parameters.AddWithValue("@Nacimiento", usuario.FechaNacimiento);

@@ -103,8 +103,8 @@ $(document).ready(function () {
 function abrirPopUpFormUsuario(json) {
     if (json) {
         $("#txtCodigo").val(json.Codigo);
-        $("#txtUsuario").val(json._Usuario);
-        $("#txtUsuario").prop("readonly", true);
+        //$("#txtUsuario").val(json._Usuario);
+        //$("#txtUsuario").prop("readonly", true);
         $("#cboRol").val(json._Rol.Codigo);
         $("#cboRol").prop("disabled", true);
         $("#txtContrasenia").val(json.Contrasenia);
@@ -114,7 +114,7 @@ function abrirPopUpFormUsuario(json) {
         $("#txtApellido").prop("readonly", true);
         $("#txtIdentificacion").val(json.Identificacion);
         $("#txtIdentificacion").prop("readonly", true);
-        $("#txtCorreo").val(json.Correo);
+        /*$("#txtCorreo").val(json.Correo);*/
         $("#txtTelefono").val(json.Telefono);
         $("#txtDireccion").val(json.Direccion);
         $("#dtFechaNacimiento").val(json.fechaNacimiento);
@@ -124,8 +124,8 @@ function abrirPopUpFormUsuario(json) {
     }
     else {
         $("#txtCodigo").val(0);
-        $("#txtUsuario").val('');
-        $("#txtUsuario").prop("readonly", false);
+        //$("#txtUsuario").val('');
+        //$("#txtUsuario").prop("readonly", false);
         $("#cboRol").val(1);
         $("#cboRol").prop("disabled", false);
         $("#txtContrasenia").val('');
@@ -135,7 +135,7 @@ function abrirPopUpFormUsuario(json) {
         $("#txtApellido").prop("readonly", false);
         $("#txtIdentificacion").val('');
         $("#txtIdentificacion").prop("readonly", false);
-        $("#txtCorreo").val('');
+        /*$("#txtCorreo").val('');*/
         $("#txtTelefono").val('');
         $("#txtDireccion").val('');
         $("#dtFechaNacimiento").val(ObtenerFecha());
@@ -147,23 +147,24 @@ function abrirPopUpFormUsuario(json) {
     $('#FormModal').modal('show');
 }
 function GuardarUsuario() {
+    console.log("postCrearUsuarioURL:", postCrearUsuarioURL);
     var request = {
         usuario : {
             Codigo: $("#txtCodigo").val(),
             CodigoRol: $("#cboRol").val(),
-            _Usuario: $("#txtUsuario").val(),
+            /*_Usuario: $("#txtUsuario").val(),*/
             Contrasenia: $("#txtContrasenia").val(),
             Nombre: $("#txtNombre").val(),
             Apellido: $("#txtApellido").val(),
             Identificacion: $("#txtIdentificacion").val(),
-            Correo: $("#txtCorreo").val(),
+            /*Correo: $("#txtCorreo").val(),*/
             Telefono: $("#txtTelefono").val(),
             Direccion: $("#txtDireccion").val(),
-            FechaNacimiento: $("#dtFechaNacimiento").val(),
+            FechaNacimiento: $("#dtFechaNacimiento").val() + "T00:00:00",
             EscDep: $("#cboEscDep").val()
         }
     }
-
+    console.log(request);
     jQuery.ajax({
         url: postCrearUsuarioURL,
         type: "POST",

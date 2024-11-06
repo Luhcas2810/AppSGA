@@ -20,7 +20,7 @@ namespace CapaModelos
         public string Direccion { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public int EscDep { get; set; }
-        public string fechaNacimiento
+        public string _fechaNacimiento
         {
             get
             {
