@@ -53,7 +53,7 @@ function GuardarRol() {
             type: "POST",
             data: JSON.stringify(request),
             dataType: "json",
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             success: function (data) {
                 if (data.data === true) { // Cambiar data.respuesta a data.data
                     console.log(data.data);

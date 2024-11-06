@@ -29,18 +29,20 @@ namespace CapaWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ActualizarDepartamento(Departamento departamento)
+        public async Task<JsonResult> CrearDepartamento(Departamento departamento)
         {
-            bool resultado;
-            if (departamento.Codigo == 0)
-            {
-                resultado = await DepartamentoAD.Instancia.CrearDepartamentoAsync(departamento);
-            }
-            else
-            {
-                return Json(new { data = false }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { data = resultado }, JsonRequestBehavior.AllowGet);
+            bool resultado = await DepartamentoAD.Instancia.CrearDepartamentoAsync(departamento);
+            return Json(new { data = resultado });
+            //bool resultado;
+            //if (departamento.Codigo == 0)
+            //{
+            //    resultado = await DepartamentoAD.Instancia.CrearDepartamentoAsync(departamento);
+            //}
+            //else
+            //{
+            //    return Json(new { data = false }, JsonRequestBehavior.AllowGet);
+            //}
+            //return Json(new { data = resultado }, JsonRequestBehavior.AllowGet);
         }
     }
 }

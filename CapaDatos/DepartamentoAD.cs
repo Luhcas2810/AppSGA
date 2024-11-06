@@ -64,8 +64,8 @@ namespace CapaDatos
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_CrearDepartamento", oConexion);
-                cmd.Parameters.AddWithValue("@Nombre", departamento.Descripcion);
+                SqlCommand cmd = new SqlCommand("proc_AgregarDepartamento", oConexion);
+                cmd.Parameters.AddWithValue("@Descripcion", departamento.Descripcion);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
