@@ -172,12 +172,12 @@ function GuardarUsuario() {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            if (data.data === true) {
+            if (data.data.Respuesta === true) {
                 tablaUsuario.ajax.reload();
                 $('#FormModal').modal('hide');
-                swal("Mensaje positivo", "Usuario creado exitosamente", "success");
+                swal("Mensaje positivo", data.data.Mensaje, "success");
             } else {
-                swal("Mensaje negativo", "No se pudo crear el usuario", "warning");
+                swal("Mensaje negativo", data.data.Mensaje, "warning");
             }
         },
         error: function (error) {

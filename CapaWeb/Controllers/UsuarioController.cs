@@ -1,5 +1,7 @@
 ﻿using CapaDatos;
 using CapaModelos;
+using CapaWeb.Permisos;
+using CapaWeb.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,6 +12,7 @@ using System.Web.Mvc;
 
 namespace CapaWeb.Controllers
 {
+    [ValidarSesion]
     public class UsuarioController : Controller
     {
         // GET: Usuario
@@ -32,7 +35,8 @@ namespace CapaWeb.Controllers
         [HttpPost]
         public async Task<JsonResult> CrearUsuario(Usuario usuario)
         {
-            bool resultado = await UsuarioAD.Instancia.AgregarUsuarioAsync(usuario);
+            usuario.Contrasenia = Encriptar.GetSHA256(usuario.Contrasenia);
+            Resultado resultado = await UsuarioAD.Instancia.AgregarUsuarioAsync(usuario);
             return Json(new { data = resultado });
         }
     }

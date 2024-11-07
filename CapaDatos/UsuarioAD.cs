@@ -66,7 +66,7 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> AgregarUsuarioAsync(Usuario usuario)
+        public async Task<Resultado> AgregarUsuarioAsync(Usuario usuario)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
@@ -79,18 +79,27 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@Telefono", usuario.Telefono);
                 cmd.Parameters.AddWithValue("@Direccion", usuario.Direccion);
                 cmd.Parameters.AddWithValue("@Nacimiento", usuario.FechaNacimiento);
-                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("@EscDep", usuario.EscDep);
+                cmd.Parameters.Add("Resultado1", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("Mensaje", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     await oConexion.OpenAsync();
                     await cmd.ExecuteNonQueryAsync();
-                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                    return new Resultado()
+                    {
+                        Respuesta = Convert.ToBoolean(cmd.Parameters["Resultado1"].Value),
+                        Mensaje = cmd.Parameters["Mensaje"].Value.ToString()
+                    };
                 }
-                catch
+                catch (SqlException ex)
                 {
-                    
-                    return false;
+                    return new Resultado()
+                    {
+                        Respuesta = false,
+                        Mensaje = ex.Message
+                    };
                 }
             }
         }

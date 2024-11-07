@@ -1,5 +1,6 @@
 ﻿using CapaDatos;
 using CapaModelos;
+using CapaWeb.Permisos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CapaWeb.Controllers
 {
+    [ValidarSesion]
     public class RolController : Controller
     {
         // GET: Rol

@@ -21,15 +21,13 @@ namespace CapaWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(string _usuario, string contrasenia)
         {
-            Usuario usuario = (await UsuarioAD.Instancia.ObtenerListaUsuarioAsync()).FirstOrDefault(x => x._Usuario == _usuario && x.Contrasenia == Encriptar.GetSHA256(contrasenia));
+            Usuario usuario = (await UsuarioAD.Instancia.ObtenerListaUsuarioAsync()).FirstOrDefault(x => x._Usuario == _usuario || x.Correo == _usuario && x.Contrasenia == Encriptar.GetSHA256(contrasenia));
             if (usuario == null)
             {
                 ViewBag.Error = "Usuario o contraseña incorrecta";
                 return View();
             }
-
             Session["Usuario"] = usuario;
-
             return RedirectToAction("Index", "Home");
         }
     }

@@ -8,9 +8,11 @@ using CapaModelos;
 
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using CapaWeb.Permisos;
 
 namespace CapaWeb.Controllers
 {
+    [ValidarSesion]
     public class CursoController : Controller
     {
         // GET: Curso

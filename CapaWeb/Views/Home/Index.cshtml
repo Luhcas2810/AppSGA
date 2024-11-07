@@ -10,9 +10,13 @@
     }
 
 </style>
-
+<p>
+    @{ 
+        CapaModelos.Usuario usuario = (CapaModelos.Usuario) Session["Usuario"];
+    }
+</p>
 <div class="caja_principal">
-    <h1>TECNOSUR</h1>
+    <h1>Bienvenido @usuario.Nombre @usuario.Apellido</h1>
     <p class="lead">Intranet optimizado por estudiantes de UNMSM</p>
 </div>
 
