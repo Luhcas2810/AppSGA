@@ -10,5 +10,6 @@ namespace CapaModelos
     {
         public bool Respuesta { get; set; }
         public string Mensaje { get; set; }
+        public string Redireccion { get; set; }
     }
 }

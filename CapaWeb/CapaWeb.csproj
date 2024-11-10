@@ -176,6 +176,8 @@
     <Content Include="Scripts\Views\Aula_Crear.js" />
     <Content Include="Scripts\Views\Curso_Crear.js" />
     <Content Include="Scripts\Views\Departamento_Crear.js" />
+    <Content Include="Scripts\Views\Login.js" />
+    <Content Include="Scripts\Views\Logout.js" />
     <Content Include="Scripts\Views\Periodo_Crear.js" />
     <Content Include="Scripts\Views\PlanEstudio_Crear.js" />
     <Content Include="Scripts\Views\Programa_Crear.js" />
