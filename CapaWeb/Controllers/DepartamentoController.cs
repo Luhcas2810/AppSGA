@@ -22,7 +22,7 @@ namespace CapaWeb.Controllers
         [HttpGet]
         public async Task<JsonResult> ObtenerListaDepartamento()
         {
-            List<Departamento> oListaPrograma = await DepartamentoAD.Instancia.ObtenerListaDepartamentoAsync();
+            List<Departamento> oListaPrograma = (await DepartamentoAD.Instancia.ObtenerListaDepartamentoAsync()).Where(x => x.Activo).ToList();
             if(oListaPrograma == null)
             {
                 oListaPrograma = new List<Departamento>();

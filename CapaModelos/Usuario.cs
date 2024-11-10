@@ -19,6 +19,35 @@ namespace CapaModelos
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public bool Activo { get; set; }
+        public string Color
+        {
+            get
+            {
+                if (Activo)
+                {
+                    return "danger";
+                }
+                else
+                {
+                    return "success";
+                }
+            }
+        }
+        public string Icono
+        {
+            get
+            {
+                if (Activo)
+                {
+                    return "lock";
+                }
+                else
+                {
+                    return "unlock";
+                }
+            }
+        }
         public int EscDep { get; set; }
         public string _fechaNacimiento
         {

@@ -52,7 +52,8 @@ namespace CapaDatos
                             Correo = dr["usu_nvcCorreo"].ToString(),
                             Telefono = dr["usu_nvcTelefono"].ToString(),
                             Direccion = dr["usu_nvcDireccion"].ToString(),
-                            FechaNacimiento = Convert.ToDateTime(dr["usu_dtFechaNacimiento"]),
+                            Activo = Convert.ToBoolean(dr["usu_bActivo"]),
+                            FechaNacimiento = Convert.ToDateTime(dr["usu_dFechaNacimiento"]),
                             _Rol = (await RolAD.Instancia.ObtenerListaRolAsync()).FirstOrDefault(r => r.Codigo == Convert.ToInt32(dr["rol_iCodigo"]))
                         });
                     }
@@ -90,6 +91,40 @@ namespace CapaDatos
                     return new Resultado()
                     {
                         Respuesta = Convert.ToBoolean(cmd.Parameters["Resultado1"].Value),
+                        Mensaje = cmd.Parameters["Mensaje"].Value.ToString()
+                    };
+                }
+                catch (SqlException ex)
+                {
+                    return new Resultado()
+                    {
+                        Respuesta = false,
+                        Mensaje = ex.Message
+                    };
+                }
+            }
+        }
+
+        public async Task<Resultado> ModificarUsuarioAsync(Usuario usuario)
+        {
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_ModificarUsuario", oConexion);
+                cmd.Parameters.AddWithValue("@CodigoUsuario", usuario.Codigo);
+                cmd.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia);
+                cmd.Parameters.AddWithValue("@Telefono", usuario.Telefono);
+                cmd.Parameters.AddWithValue("@Direccion", usuario.Direccion);
+                cmd.Parameters.AddWithValue("@Estado", usuario.Activo ? 1 : 0);
+                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("Mensaje", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    await oConexion.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                    return new Resultado()
+                    {
+                        Respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value),
                         Mensaje = cmd.Parameters["Mensaje"].Value.ToString()
                     };
                 }

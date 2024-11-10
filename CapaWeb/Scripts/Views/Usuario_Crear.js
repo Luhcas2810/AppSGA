@@ -75,7 +75,7 @@ $(document).ready(function () {
             "datatype": "json"
         },
         "columns": [
-            { "data": "Codigo" },
+            { "data": "_Usuario" },
             {
                 "data": "_Rol", render: function (data) {
                     return data.Descripcion;
@@ -85,8 +85,13 @@ $(document).ready(function () {
             { "data": "Apellido" },
             { "data": "Correo" },
             {
+                "data": "Activo", render: function (data) {
+                    return data ? "Activo" : "Inactivo";
+                }
+            },
+            {
                 "data": "IdUsuario", render: function (data, type, row) {
-                    return "<button class='btn btn-primary btn-sm' onclick='abrirPopUpFormUsuario(" + JSON.stringify(row) + ")'>Editar</button>";
+                    return "<button class='btn btn-primary btn-sm' onclick='abrirPopUpFormUsuario(" + JSON.stringify(row) + ")'><i class='bi bi-pencil-square'></i></button> <button class='btn btn-" + row.Color + " btn-sm' onclick='cambiarEstado(" + JSON.stringify(row) + ")'><i class='bi bi-" + row.Icono + "-fill'></i></button>";
                 },
                 "orderable": false,
                 "searchable": false
@@ -100,6 +105,28 @@ $(document).ready(function () {
         "language": { "url": getDatatableSpanish }
     });
 });
+function cambiarEstado(json) {
+    var Codigo = json.Codigo;
+    jQuery.ajax({
+        url: postCambiarEstadoURL,
+        type: "POST",
+        data: JSON.stringify({ CodigoUsuario: Codigo }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.data.Respuesta === true) {
+                tablaUsuario.ajax.reload();
+                //swal("Mensaje positivo", data.data.Mensaje, "success");
+            } else {
+                swal("Mensaje negativo", data.data.Mensaje, "warning");
+            }
+        },
+        error: function (error) {
+            console.log("Error en la solicitud:", error);
+            swal("Error en la comunicación con el servidor", "", "error");
+        }
+    });
+}
 function abrirPopUpFormUsuario(json) {
     if (json) {
         $("#txtCodigo").val(json.Codigo);
@@ -107,7 +134,7 @@ function abrirPopUpFormUsuario(json) {
         //$("#txtUsuario").prop("readonly", true);
         $("#cboRol").val(json._Rol.Codigo);
         $("#cboRol").prop("disabled", true);
-        $("#txtContrasenia").val(json.Contrasenia);
+        $("#txtContrasenia").val('');
         $("#txtNombre").val(json.Nombre);
         $("#txtNombre").prop("readonly", true);
         $("#txtApellido").val(json.Apellido);
@@ -117,7 +144,7 @@ function abrirPopUpFormUsuario(json) {
         /*$("#txtCorreo").val(json.Correo);*/
         $("#txtTelefono").val(json.Telefono);
         $("#txtDireccion").val(json.Direccion);
-        $("#dtFechaNacimiento").val(json.fechaNacimiento);
+        $("#dtFechaNacimiento").val(json._fechaNacimiento);
         $("#dtFechaNacimiento").prop("disabled", true);
         $("#cboEscDep").val(json.EscDep);
         $("#cboEscDep").prop("disabled", true);
@@ -147,7 +174,7 @@ function abrirPopUpFormUsuario(json) {
     $('#FormModal').modal('show');
 }
 function GuardarUsuario() {
-    console.log("postCrearUsuarioURL:", postCrearUsuarioURL);
+    //console.log("postCrearUsuarioURL:", postCrearUsuarioURL);
     var request = {
         usuario : {
             Codigo: $("#txtCodigo").val(),
@@ -166,7 +193,7 @@ function GuardarUsuario() {
     }
     console.log(request);
     jQuery.ajax({
-        url: postCrearUsuarioURL,
+        url: postGuardarUsuarioURL,
         type: "POST",
         data: JSON.stringify(request),
         dataType: "json",

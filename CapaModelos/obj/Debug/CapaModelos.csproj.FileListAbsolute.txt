@@ -64,7 +64,6 @@ C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\bin\
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\bin\Debug\System.Web.WebPages.xml
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\obj\Debug\CapaModelos.csproj.AssemblyReference.cache
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\obj\Debug\CapaModelos.csproj.CoreCompileInputs.cache
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\obj\Debug\CapaModelos.csproj.CopyComplete
 C:\Users\jjvc2\OneDrive\Escritorio\ProyectoIngInfOficial\AppSGA\CapaModelos\obj\Debug\CapaModelos.dll

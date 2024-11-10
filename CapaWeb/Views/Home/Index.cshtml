@@ -13,6 +13,10 @@
 <p>
     @{ 
         CapaModelos.Usuario usuario = (CapaModelos.Usuario) Session["Usuario"];
+        if(usuario == null)
+        {
+            usuario = new CapaModelos.Usuario();
+        }
     }
 </p>
 <div class="caja_principal">

@@ -47,7 +47,9 @@ namespace CapaDatos
                         rptListaDepartamento.Add(new Departamento()
                         {
                             Codigo = Convert.ToInt32(dr["dep_iCodigo"]),
-                            Descripcion = dr["dep_nvcDescripcion"].ToString()
+                            Descripcion = dr["dep_nvcDescripcion"].ToString(),
+                            Activo = Convert.ToBoolean(dr["dep_bActivo"]),
+                            FechaRegistro = Convert.ToDateTime(dr["dep_dtFechaRegistro"]) 
                         });
                     }
                     oConexion.Close();

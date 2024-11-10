@@ -11,5 +11,6 @@ namespace CapaModelos
         public int Codigo { get; set; }
         public string Carrera { get; set; }
         public int Duracion { get; set; }
+        public DateTime FechaRegistro { get; set; }
     }
 }

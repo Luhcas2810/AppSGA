@@ -33,7 +33,7 @@ namespace CapaDatos
 
         public async Task<List<Escuela>> ObtenerListaEscuelaAsync()
         {
-            List<Escuela> rptListaPrograma = new List<Escuela>();
+            List<Escuela> rptListaEscuela = new List<Escuela>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_ListaEscuela", oConexion);
@@ -44,15 +44,16 @@ namespace CapaDatos
                     SqlDataReader dr = await cmd.ExecuteReaderAsync();
                     while (dr.Read())
                     {
-                        rptListaPrograma.Add(new Escuela()
+                        rptListaEscuela.Add(new Escuela()
                         {
                             Codigo = Convert.ToInt32(dr["esc_iCodigo"]),
                             Carrera = dr["esc_nvcCarrera"].ToString(),
-                            Duracion = Convert.ToInt32(dr["esc_iDuracion"])
+                            Duracion = Convert.ToInt32(dr["esc_iDuracion"]),
+                            FechaRegistro = Convert.ToDateTime(dr["esc_dtFechaRegistro"])
                         });
                     }
                     oConexion.Close();
-                    return rptListaPrograma;
+                    return rptListaEscuela;
                 }
                 catch
                 {
@@ -61,13 +62,13 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> CrearEscuelaAsync(Escuela programa)
+        public async Task<bool> CrearEscuelaAsync(Escuela escuela)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
                 SqlCommand cmd = new SqlCommand("proc_CrearPrograma", oConexion);
-                cmd.Parameters.AddWithValue("@Carrera", programa.Carrera);
-                cmd.Parameters.AddWithValue("@Duracion", programa.Duracion);
+                cmd.Parameters.AddWithValue("@Carrera", escuela.Carrera);
+                cmd.Parameters.AddWithValue("@Duracion", escuela.Duracion);
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

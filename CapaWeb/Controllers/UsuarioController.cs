@@ -33,10 +33,27 @@ namespace CapaWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> CrearUsuario(Usuario usuario)
+        public async Task<JsonResult> AcrtualizarUsuario(Usuario usuario)
         {
-            usuario.Contrasenia = Encriptar.GetSHA256(usuario.Contrasenia);
-            Resultado resultado = await UsuarioAD.Instancia.AgregarUsuarioAsync(usuario);
+            usuario.Contrasenia = string.IsNullOrEmpty(usuario.Contrasenia) ? "" : Encriptar.GetSHA256(usuario.Contrasenia);
+            Resultado resultado = new Resultado();
+            if (usuario.Codigo == 0)
+            {
+                resultado = await UsuarioAD.Instancia.AgregarUsuarioAsync(usuario);
+            }
+            else
+            {
+                resultado = await UsuarioAD.Instancia.ModificarUsuarioAsync(usuario);
+            }
+            return Json(new { data = resultado });
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> CambiarEstado(int CodigoUsuario)
+        {
+            Usuario usuario = (await UsuarioAD.Instancia.ObtenerListaUsuarioAsync()).FirstOrDefault(x => x.Codigo == CodigoUsuario);
+            usuario.Activo = usuario.Activo ? false : true;
+            Resultado resultado = await UsuarioAD.Instancia.ModificarUsuarioAsync(usuario);
             return Json(new { data = resultado });
         }
     }
