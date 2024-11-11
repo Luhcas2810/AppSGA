@@ -83,6 +83,7 @@
     <Compile Include="Menu.cs" />
     <Compile Include="Periodo.cs" />
     <Compile Include="Permiso.cs" />
+    <Compile Include="PermisoMenu.cs" />
     <Compile Include="PlanEstudio.cs" />
     <Compile Include="Escuela.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -44,7 +44,33 @@ namespace CapaWeb.Controllers
                     Mensaje = "Usuario bloqueado"
                 };
             }
+            List<Menu> listamenu = await MenuAD.Instancia.ObtenerListaMenuAsync();
+            List<PermisoMenu> listaPermiso = new List<PermisoMenu>();
+            foreach (Menu menu in listamenu)
+            {
+                List<Submenu> _listaSubmenu = (await SubmenuAD.Instancia.ObtenerListaSubmenuAsync())
+                    .Where(x => x.CodigoMenu == menu.Codigo).ToList();
+                List<Submenu> _listaSubmenuProduccion = new List<Submenu>();
+                foreach (Submenu submenu in _listaSubmenu)
+                {
+                    Permiso permiso = (await PermisoAD.Instancia.ObtenerListaPermisoAsync())
+                        .FirstOrDefault(x => x.CodigoRol == usuario.Codigo && x.CodigoSubmenu == submenu.Codigo);
+                    if (permiso.Activo)
+                    {
+                        _listaSubmenuProduccion.Add(submenu);
+                    }
+                }
+                if (_listaSubmenuProduccion.Count > 0)
+                {
+                    listaPermiso.Add(new PermisoMenu()
+                    {
+                        _Menu = menu,
+                        listaSubmenu = _listaSubmenuProduccion
+                    });
+                }
+            }
             Session["Usuario"] = usuario;
+            Session["permiso"] = listaPermiso;
             return Json(new { data = resultado });
         }
 

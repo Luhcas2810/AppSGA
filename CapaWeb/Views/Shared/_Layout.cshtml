@@ -25,6 +25,7 @@
     <p>
         @{
             CapaModelos.Usuario usuario = (CapaModelos.Usuario)Session["Usuario"];
+            List<CapaModelos.PermisoMenu> listapermiso = (List<CapaModelos.PermisoMenu>)Session["permiso"];
             if (usuario == null)
             {
                 usuario = new CapaModelos.Usuario();
@@ -46,93 +47,115 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi bi-gear">
-                            @*<span class="badge badge-primary">11</span>*@
-                        </i>
-                        Administración
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="~/Usuario/Crear">Usuarios</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="~/Programa/Crear">Programas</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="~/Rol/Crear">Roles</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="~/Departamento/Crear">Departamentos</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi bi-journal-bookmark">
-                            @*<span class="badge badge-primary">11</span>*@
-                        </i>
-                        Educación
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <a class="dropdown-item" href="~/PlanEstudio/Crear">Planes de Estudio</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="~/Curso/Crear">Cursos</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="~/Periodo/Crear">Periodos</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="~/Aula/Crear">Aulas</a>
-                    </div>
-                </li>
-                @*<li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa fa-envelope-o">
-                                <span class="badge badge-danger">11</span>
+                @if (listapermiso.Count > 0)
+                {
+                    foreach (var item in listapermiso)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-gear">
+                                </i>
+                                @item._Menu.Nombre
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var itemSubMenu in item.listaSubmenu)
+                                {
+                                    <a class="dropdown-item" href="~/@($"{itemSubMenu.Controlador}/{itemSubMenu.Vista}")">@itemSubMenu.Nombre</a>
+                                }
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-gear">
+                                @*<span class="badge badge-primary">11</span>*@
                             </i>
-                            Link
+                            Administración
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="~/Usuario/Crear">Usuarios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Programa/Crear">Programas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Rol/Crear">Roles</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Departamento/Crear">Departamentos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark">
+                                @*<span class="badge badge-primary">11</span>*@
+                            </i>
+                            Educación
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <a class="dropdown-item" href="~/PlanEstudio/Crear">Planes de Estudio</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Curso/Crear">Cursos</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Periodo/Crear">Periodos</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Aula/Crear">Aulas</a>
+                        </div>
+                    </li>
+                }
+                @*<li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fa fa-envelope-o">
+                    <span class="badge badge-danger">11</span>
+                </i>
+                Link
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+                <i class="fa fa-envelope-o">
+                    <span class="badge badge-warning">11</span>
+                </i>
+                Disabled
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-envelope-o">
+                    <span class="badge badge-primary">11</span>
+                </i>
+                Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>*@
+            </ul>
+            @*<ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-bell">
+                                <span class="badge badge-info">11</span>
+                            </i>
+                            Test
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">
-                            <i class="fa fa-envelope-o">
-                                <span class="badge badge-warning">11</span>
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-globe">
+                                <span class="badge badge-success">11</span>
                             </i>
-                            Disabled
+                            Test
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-envelope-o">
-                                <span class="badge badge-primary">11</span>
-                            </i>
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>*@
-            </ul>
-            @*<ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-bell">
-                            <span class="badge badge-info">11</span>
-                        </i>
-                        Test
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-globe">
-                            <span class="badge badge-success">11</span>
-                        </i>
-                        Test
-                    </a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>*@
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>*@
             <form class="form-inline my-2 my-lg-0">
                 <button class="btn btn-danger my-2 my-sm-0" type="button" id="logoutButton">Cerrar sesión</button>
             </form>
