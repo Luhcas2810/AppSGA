@@ -76,7 +76,9 @@
     <Compile Include="CursoAD.cs" />
     <Compile Include="DepartamentoAD.cs" />
     <Compile Include="EstudianteAD.cs" />
+    <Compile Include="MenuAD.cs" />
     <Compile Include="PeriodoAD.cs" />
+    <Compile Include="PermisoAD.cs" />
     <Compile Include="PlanEstudioAD.cs" />
     <Compile Include="EscuelaAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +88,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RolAD.cs" />
+    <Compile Include="SubmenuAD.cs" />
     <Compile Include="UsuarioAD.cs" />
   </ItemGroup>
   <ItemGroup>

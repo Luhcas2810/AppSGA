@@ -80,13 +80,16 @@
     <Compile Include="Estudiante.cs" />
     <Compile Include="Matricula.cs" />
     <Compile Include="MatriculaSeccion.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Periodo.cs" />
+    <Compile Include="Permiso.cs" />
     <Compile Include="PlanEstudio.cs" />
     <Compile Include="Escuela.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resultado.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Seccion.cs" />
+    <Compile Include="Submenu.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>

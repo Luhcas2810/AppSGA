@@ -60,6 +60,35 @@ namespace CapaDatos
             }
         }
 
+        public List<Rol> ObtenerListaRol()
+        {
+            List<Rol> rptListaRol = new List<Rol>();
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_ListaRol", oConexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    oConexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        rptListaRol.Add(new Rol()
+                        {
+                            Codigo = Convert.ToInt32(dr["rol_iCodigo"]),
+                            Descripcion = dr["rol_nvcDescripcion"].ToString()
+                        });
+                    }
+                    oConexion.Close();
+                    return rptListaRol;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
         public async Task<bool> CrearRolAsync(Rol rol)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
