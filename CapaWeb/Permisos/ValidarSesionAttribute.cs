@@ -16,19 +16,17 @@ namespace CapaWeb.Permisos
             {
                 filterContext.Result = new RedirectResult("~/Login/Login");
             }
-            string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-            string actionName = filterContext.ActionDescriptor.ActionName;
-            // CapaDatos.PermisoAD.Instancia.ObtenerListaPermiso().
-            //List<CapaModelos.Permiso> permiso = Task.Run(async () =>
-            //{
-            //    return await CapaDatos.PermisoAD.Instancia.ObtenerListaPermisoAsync();
-            //});
-            CapaModelos.Permiso permiso = CapaDatos.PermisoAD.Instancia.ObtenerListaPermiso()
-                .Where(x => x.CodigoRol == usuario.CodigoRol && x._Submenu.Controlador == controllerName && x._Submenu.Vista == actionName && x.Activo)
-                .FirstOrDefault();
-            if (controllerName != "Home" && permiso == null)
+            else
             {
-                filterContext.Result = new RedirectResult("~/Home/Index");
+                //string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                //string actionName = filterContext.ActionDescriptor.ActionName;
+                //CapaModelos.Permiso permiso = CapaDatos.PermisoAD.Instancia.ObtenerListaPermiso()
+                //    .Where(x => x.CodigoRol == usuario.CodigoRol && x._Submenu.Controlador == controllerName && x._Submenu.Vista == actionName && x.Activo)
+                //    .FirstOrDefault();
+                //if (controllerName != "Home" && permiso == null)
+                //{
+                //    filterContext.Result = new RedirectResult("~/Home/Index");
+                //}
             }
             base.OnActionExecuting(filterContext);
         }
