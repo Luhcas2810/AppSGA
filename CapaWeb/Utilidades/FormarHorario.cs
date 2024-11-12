@@ -79,5 +79,47 @@ namespace CapaWeb.Utilidades
             }
             return listaCortada;
         }
+
+        public static SeccionTotal formarSeccionTotal(Seccion seccion)
+        {
+            List<DiaSeccion> listaDias = new List<DiaSeccion>();
+            string[] Matrizhorario = seccion.Horario.Split();
+            List<string> Listahorainicio1 = CortarHorarioInicio(seccion.HoraInicio);
+            for (int i = 0; i < Matrizhorario.Length; i++)
+            {
+                int _dia = Convert.ToInt32(Matrizhorario[i]);
+                if (_dia != 0)
+                {
+                    int horaInicio = Convert.ToInt32(Listahorainicio1[i]);
+                    List<int> listaHoras = new List<int>();
+                    for (int j = 0; j < _dia; j++)
+                    {
+                        listaHoras.Add(horaInicio + j);
+                    }
+                    listaDias.Add(new DiaSeccion() 
+                    {
+                        Dia = i + 1,
+                        listaHora = listaHoras
+                    });
+                }
+            }
+            return new SeccionTotal() 
+            {
+                _Seccion = seccion,
+                listaDia = listaDias
+            };
+        }
+    }
+
+    public class DiaSeccion
+    {
+        public int Dia { get; set; }
+        public List<int> listaHora { get; set; }
+    }
+
+    public class SeccionTotal
+    {
+        public Seccion _Seccion { get; set; }
+        public List<DiaSeccion> listaDia { get; set; }
     }
 }
