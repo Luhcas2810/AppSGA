@@ -81,7 +81,7 @@ namespace CapaDatos
             List<PlanEstudio> rptListaPlanEstudio = new List<PlanEstudio>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaPlanEstudio", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListaPlanEstudio", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -92,7 +92,6 @@ namespace CapaDatos
                         rptListaPlanEstudio.Add(new PlanEstudio()
                         {
                             Codigo = Convert.ToInt32(dr["pla_iCodigo"]),
-                            CodigoEscuela = Convert.ToInt32(dr["esc_iCodigo"]),
                             Descripcion = dr["pla_nvcDescripcion"].ToString(),
                             _Escuela = (await EscuelaAD.Instancia.ObtenerListaEscuelaAsync())
                                 .FirstOrDefault(x => x.Codigo == Convert.ToInt32(dr["esc_iCodigo"]))
@@ -101,8 +100,14 @@ namespace CapaDatos
                     oConexion.Close();
                     return rptListaPlanEstudio;
                 }
-                catch
+                catch (SqlException ex)
                 {
+                    string mensaje = ex.Message;
+                    return null;
+                }
+                catch (ArgumentNullException ex2)
+                {
+                    string mensaje2 = ex2.Message;
                     return null;
                 }
             }

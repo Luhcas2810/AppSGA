@@ -86,7 +86,7 @@ $(document).ready(function () {
             { "data": "Correo" },
             {
                 "data": "Activo", render: function (data) {
-                    return data ? "Activo" : "Inactivo";
+                    return data ? "<span class='badge badge-success'>Activo</span>" : "<span class='badge badge-danger'>Inactivo</span>";
                 }
             },
             {
