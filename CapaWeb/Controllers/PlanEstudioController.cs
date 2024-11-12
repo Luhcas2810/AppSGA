@@ -21,19 +21,20 @@ namespace CapaWeb.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<JsonResult> CrearPlanEstudio(PlanEstudio planEstudio)
+        {
+            Resultado resultado = new Resultado(); 
+            resultado = await PlanEstudioAD.Instancia.AgregarPlanEstudioAsync(planEstudio);
+            return Json(new { data = resultado });
+        }
+
         //[HttpPost]
-        //public async Task<JsonResult> CrearPlanEstudio(PlanEstudio planEstudio)
+        //public async Task<JsonResult> CambiarEstadoPlanEstudio(int idPlan, bool habilitar)
         //{
-        //    bool resultado = await PlanEstudioAD.Instancia.CrearPlanEstudioAsync(planEstudio);
+        //    bool resultado = await PlanEstudioAD.Instancia.CambiarEstadoPlanEstudioAsync(idPlan, habilitar);
         //    return Json(new { respuesta = resultado }, JsonRequestBehavior.AllowGet);
         //}
-
-        [HttpPost]
-        public async Task<JsonResult> CambiarEstadoPlanEstudio(int idPlan, bool habilitar)
-        {
-            bool resultado = await PlanEstudioAD.Instancia.CambiarEstadoPlanEstudioAsync(idPlan, habilitar);
-            return Json(new { respuesta = resultado }, JsonRequestBehavior.AllowGet);
-        }
 
         [HttpGet]
         public async Task<JsonResult> ObtenerListaPlanEstudio()
