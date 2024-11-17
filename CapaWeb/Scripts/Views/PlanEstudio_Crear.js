@@ -20,12 +20,12 @@ $(document).ready(function () {
             { "data": "Descripcion" },
             {
                 "data": "Estado", "render": function (data) {
-                    return data === 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">No Activo</span>';
+                    return data ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">No Activo</span>';
                 }
             },
             {
                 "data": "Codigo", "render": function (data, type, row) {
-                    return "<button class='btn btn-primary btn-sm' type='button' onclick='abrirPopUpForm(" + JSON.stringify(row) + ")'><i class='fas fa-pen'></i></button>";
+                    return "<button class='btn btn-" + row.Color + " btn-sm' onclick='cambiarEstado(" + JSON.stringify(row) + ")'><i class='bi bi-" + row.Icono + "-fill'></i></button>";
                 },
                 "orderable": false,
                 "searchable": false,
@@ -38,6 +38,28 @@ $(document).ready(function () {
         responsive: true
     });
 });
+function cambiarEstado(json) {
+    var Codigo = json.Codigo;
+    jQuery.ajax({
+        url: postCambiarEstadoPlanURL,
+        type: "POST",
+        data: JSON.stringify({ CodigoPlan: Codigo }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.data.Respuesta === true) {
+                tablaPlanEstudio.ajax.reload();
+                //swal("Mensaje positivo", data.data.Mensaje, "success");
+            } else {
+                swal("Mensaje negativo", data.data.Mensaje, "warning");
+            }
+        },
+        error: function (error) {
+            console.log("Error en la solicitud:", error);
+            swal("Error en la comunicación con el servidor", "", "error");
+        }
+    });
+}
 
 // Función para cargar la lista de Escuelas en el combo
 function cargarEscuelas() {

@@ -108,7 +108,7 @@ $(document).ready(function () {
 function cambiarEstado(json) {
     var Codigo = json.Codigo;
     jQuery.ajax({
-        url: postCambiarEstadoURL,
+        url: postCambiarEstadoUsuarioURL,
         type: "POST",
         data: JSON.stringify({ CodigoUsuario: Codigo }),
         dataType: "json",

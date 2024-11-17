@@ -46,6 +46,7 @@ namespace CapaDatos
                             Codigo = Convert.ToInt32(dr["pla_iCodigo"]),
                             //CodigoEscuela = Convert.ToInt32(dr["esc_iCodigo"]),
                             Descripcion = dr["pla_nvcDescripcion"].ToString(),
+                            Estado = Convert.ToBoolean(dr["pla_bActivo"]),
                             _Escuela = (await EscuelaAD.Instancia.ObtenerListaEscuelaAsync()).FirstOrDefault(r => r.Codigo == Convert.ToInt32(dr["esc_iCodigo"]))
                         });
                     }
@@ -69,6 +70,37 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@Descripcion", planEstudio.Descripcion);
                 cmd.Parameters.Add("Mensaje", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output; 
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    await oConexion.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                    return new Resultado()
+                    {
+                        Respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value),
+                        Mensaje = cmd.Parameters["Mensaje"].Value.ToString()
+                    };
+                }
+                catch (SqlException ex)
+                {
+                    return new Resultado()
+                    {
+                        Respuesta = false,
+                        Mensaje = ex.Message
+                    };
+                }
+            }
+        }
+
+        public async Task<Resultado> ModificarPlanAsync(PlanEstudio plan)
+        {
+            using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
+            {
+                SqlCommand cmd = new SqlCommand("proc_ModificarPlanEstudio", oConexion);
+                cmd.Parameters.AddWithValue("@CodigoPlan", plan.Codigo);
+                cmd.Parameters.AddWithValue("@Estado", plan.Estado ? 1 : 0);
+                cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("Mensaje", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {

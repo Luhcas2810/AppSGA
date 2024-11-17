@@ -6,15 +6,35 @@ using System.Web;
 
 namespace CapaWeb.Utilidades
 {
-    public class FormarHorario
+    public class HorarioResultado
     {
-        public bool formarHorario(List<Seccion> listaSeccion)
+        public static HorarioResultado _instancia = null;
+
+        private HorarioResultado()
+        {
+
+        }
+
+        public static HorarioResultado Instancia
+        {
+            get
+            {
+                if (_instancia == null)
+                {
+                    _instancia = new HorarioResultado();
+                }
+                return _instancia;
+            }
+        }
+        public bool FormarHorario(List<Seccion> listaSeccion)
         {
             foreach (Seccion seccion1 in listaSeccion)
             {
                 foreach (Seccion seccion2 in listaSeccion)
                 {
-                    if(CompararSecciones(seccion1, seccion2))
+                    SeccionTotal seccionT1 = FormarSeccionTotal(seccion1);
+                    SeccionTotal seccionT2 = FormarSeccionTotal(seccion2);
+                    if(CompararSecciones(seccionT1, seccionT2))
                     {
                         continue;
                     }
@@ -27,35 +47,23 @@ namespace CapaWeb.Utilidades
             return true;
         }
 
-        public bool CompararSecciones(Seccion seccion1, Seccion seccion2)
+        public bool CompararSecciones(SeccionTotal seccion1, SeccionTotal seccion2)
         {
-            if(seccion1.Codigo == seccion2.Codigo)
+            if(seccion1._Seccion.Codigo == seccion2._Seccion.Codigo)
             {
                 return true;
             }
-            else if (seccion1.CodigoCurso == seccion2.CodigoCurso)
+            else if (seccion1._Seccion.CodigoCurso == seccion2._Seccion.CodigoCurso)
             {
                 return false;
             }
             else
             {
-                string[] horario1 = seccion1.Horario.Split();
-                string[] horario2 = seccion2.Horario.Split();
-                List<string> Listahorainicio1 = CortarHorarioInicio(seccion1.HoraInicio);
-                List<string> Listahorainicio2 = CortarHorarioInicio(seccion2.HoraInicio);
-                for (int i = 0; i < horario1.Length; i++)
+                foreach (DiaSeccion dia1 in seccion1.listaDia)
                 {
-                    if (horario1[i] == "0" || horario2[i] == "0")
+                    foreach (DiaSeccion dia2 in seccion2.listaDia)
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        int horainicio1 = Convert.ToInt32(Listahorainicio1[i]);
-                        int horainicio2 = Convert.ToInt32(Listahorainicio2[i]);
-                        int horafin1 = horainicio1 + Convert.ToInt32(horario1[i]);
-                        int horafin2 = horainicio2 + Convert.ToInt32(horario2[i]);
-                        if (horainicio1 >= horafin2 || horainicio2 >= horafin1)
+                        if(ComparacionDiaSeccion(dia1, dia2))
                         {
                             continue;
                         }
@@ -69,7 +77,7 @@ namespace CapaWeb.Utilidades
             return true;
         }
 
-        public static List<string> CortarHorarioInicio(string horarioinicio)
+        public List<string> CortarHorarioInicio(string horarioinicio)
         {
             List<string> listaCortada = new List<string>();
             for(int i = 0; i < horarioinicio.Length; i+= 2)
@@ -80,7 +88,29 @@ namespace CapaWeb.Utilidades
             return listaCortada;
         }
 
-        public static SeccionTotal formarSeccionTotal(Seccion seccion)
+        public bool ComparacionDiaSeccion(DiaSeccion dia1, DiaSeccion dia2)
+        {
+            if(dia1.Dia != dia2.Dia)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (int hora1 in dia1.listaHora)
+                {
+                    foreach (int hora2 in dia2.listaHora)
+                    {
+                        if(hora1 == hora2)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        public SeccionTotal FormarSeccionTotal(Seccion seccion)
         {
             List<DiaSeccion> listaDias = new List<DiaSeccion>();
             string[] Matrizhorario = seccion.Horario.Split();

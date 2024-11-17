@@ -24,8 +24,7 @@ namespace CapaWeb.Controllers
         [HttpPost]
         public async Task<JsonResult> CrearPlanEstudio(PlanEstudio planEstudio)
         {
-            Resultado resultado = new Resultado(); 
-            resultado = await PlanEstudioAD.Instancia.AgregarPlanEstudioAsync(planEstudio);
+            Resultado resultado = await PlanEstudioAD.Instancia.AgregarPlanEstudioAsync(planEstudio);
             return Json(new { data = resultado });
         }
 
@@ -45,6 +44,15 @@ namespace CapaWeb.Controllers
                 oListaPlanEstudio = new List<PlanEstudio>();
             }
             return Json(new { data = oListaPlanEstudio }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> CambiarEstado(int CodigoPlan)
+        {
+            PlanEstudio plan = (await PlanEstudioAD.Instancia.ObtenerListaPlanEstudioAsync()).FirstOrDefault(x => x.Codigo == CodigoPlan);
+            plan.Estado = plan.Estado ? false : true;
+            Resultado resultado = await PlanEstudioAD.Instancia.ModificarPlanAsync(plan);
+            return Json(new { data = resultado });
         }
     }
 }
