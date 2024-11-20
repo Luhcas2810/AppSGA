@@ -41,7 +41,7 @@ namespace CapaWeb.Controllers
         [HttpPost]
         public async Task<JsonResult> ActualizarCurso(Curso curso)
         {
-            bool resultado;
+            Resultado resultado;
             if (curso.Codigo == 0)
             {
                 // Crear nuevo curso
@@ -52,7 +52,7 @@ namespace CapaWeb.Controllers
                 // Modificar curso existente
                 resultado = await CursoAD.Instancia.ModificarCursoAsync(curso);
             }
-            return Json(new { respuesta = resultado }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = resultado });
         }
     }
 }

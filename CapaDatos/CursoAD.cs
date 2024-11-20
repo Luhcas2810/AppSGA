@@ -36,7 +36,7 @@ namespace CapaDatos
             List<Curso> listaCursos = new List<Curso>();
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
-                SqlCommand cmd = new SqlCommand("proc_ObtenerListaCurso", oConexion);
+                SqlCommand cmd = new SqlCommand("proc_ListaCurso", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -48,10 +48,9 @@ namespace CapaDatos
                         {
                             Codigo = Convert.ToInt32(dr["cur_iCodigo"]),
                             Nombre = dr["cur_nvcNombre"].ToString(),
-                            //Codigo = dr["Codigo"].ToString(), 
-                            //IdPlan = Convert.ToInt32(dr["IdPlan"]),
+                            CodigoPlan = Convert.ToInt32(dr["pla_iCodigo"]),
                             Creditos = Convert.ToInt32(dr["cur_iCreditos"]),
-                            CodigoPlan = Convert.ToInt32(dr["pla_iCodigo"])
+                            
                         });
                     }
                     oConexion.Close();
@@ -64,7 +63,7 @@ namespace CapaDatos
             }
         }
 
-        public async Task<bool> CrearCursoAsync(Curso curso)
+        public async Task<Resultado> CrearCursoAsync(Curso curso)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
@@ -73,22 +72,31 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@IdCurso", curso.Codigo);
                 cmd.Parameters.AddWithValue("@IdPlan", curso.CodigoPlan);
                 cmd.Parameters.AddWithValue("@Creditos", curso.Creditos);
+                cmd.Parameters.Add("Mensaje", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     await oConexion.OpenAsync();
                     await cmd.ExecuteNonQueryAsync();
-                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                    return new Resultado() 
+                    {
+                        Respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value),
+                        Mensaje = cmd.Parameters["Mensaje"].Value.ToString(),
+                    };
                 }
-                catch
+                catch (SqlException ex)
                 {
-                    return false;
+                    return new Resultado()
+                    {
+                        Respuesta = false,
+                        Mensaje = ex.Message
+                    };
                 }
             }
         }
 
-        public async Task<bool> ModificarCursoAsync(Curso curso)
+        public async Task<Resultado> ModificarCursoAsync(Curso curso)
         {
             using (SqlConnection oConexion = new SqlConnection(ConexionSQL.conexionSQL))
             {
@@ -98,17 +106,26 @@ namespace CapaDatos
                 //cmd.Parameters.AddWithValue("@Codigo", curso.Codigo);
                 cmd.Parameters.AddWithValue("@IdPlan", curso.CodigoPlan);
                 cmd.Parameters.AddWithValue("@Creditos", curso.Creditos);
+                cmd.Parameters.Add("Mensaje", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     await oConexion.OpenAsync();
                     await cmd.ExecuteNonQueryAsync();
-                    return Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                    return new Resultado()
+                    {
+                        Respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value),
+                        Mensaje = cmd.Parameters["Mensaje"].Value.ToString()
+                    };
                 }
-                catch
+                catch (SqlException ex)
                 {
-                    return false;
+                    return new Resultado()
+                    {
+                        Respuesta = false,
+                        Mensaje = ex.Message
+                    };
                 }
             }
         }
